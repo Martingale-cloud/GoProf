@@ -1,0 +1,56 @@
+<StackLayout class="mainContent">
+    
+            <GridLayout class="header" columns="50,*,50,50,50,50,50">
+                <Button text="&#xf2d3;" class="fa topIcon hangup" (tap)="back()" col="2"></Button>
+                <Button text="&#xf0e2;" class="fa topIcon" (tap)="tapUndo()" col="3"></Button>
+                    <Button text="&#xf019;" class="fa topIcon" (tap)="save()" col="4"></Button>
+                    <Button text="&#xf067;" class="fa topIcon" (tap)="newPageChoice(false)" col="5"></Button>
+                    <Button text="&#xf030;" *ngIf="!camMode" class="fa topIcon" (tap)="camIconClick()" col="6"></Button>
+                    <Button text="&#xf057;" *ngIf="camMode" class="fa topIcon" (tap)="switchCamMode(false)" col="7"></Button>
+                  
+                  
+            </GridLayout>
+            <StackLayout class="spikes">                
+            </StackLayout>
+
+            <GridLayout rows="*">
+                
+
+
+
+
+            
+                
+                
+                
+                <webView  #webView [ngClass]="{'hidden': activePage.id == 'camera'}" ></webView>
+                
+                <RemoteVideo (tap)="switchPage('camera')" class="subscriberView" [ngClass]="{'small': activePage.id != 'camera'}" style=" background-image: url('{{cameraPage.thumbnail}}');" id="remote-video" ></RemoteVideo>
+            
+      
+
+
+
+                <GridLayout *ngIf="device == 'ios'" verticalAlignment="top" horizontalAlignment="right" margin="10" id="local-video-container">
+                    <LocalVideo (tap)="clickOwnCamera()" id="local-video" class="ios" verticalAlignment="top" horizontalAlignment="right"  ></LocalVideo> 
+                </GridLayout>
+
+                <GridLayout *ngIf="device == 'android'" verticalAlignment="top" horizontalAlignment="right" margin="10" id="local-video-container" [ngClass]="{big : camMode}">
+                    <LocalVideo (tap)="clickOwnCamera()" id="local-video" verticalAlignment="top" horizontalAlignment="right"  ></LocalVideo> 
+                    <Button text="&#xf030;" verticalAlignment="bottom" (tap)="take()" horizontalAlignment="center" *ngIf="camMode" class="fa" style="font-size: 30; padding:30; color:#fff;" col="5"></Button>
+                </GridLayout>
+            
+                
+                <ScrollView class="sheetContainer" *ngIf="pages.length > 1 || (activePage.id == 'camera' && pages.length > 0) " [ngClass]="{'small': activePage.id != 'camera'}" orientation="horizontal">
+                    <StackLayout  orientation="horizontal" >
+                        <!--<Label text="Camera" class="sheet camera" (tap)="openPage('camera')" [ngClass]="{'active': activePage.id == 'camera'}" style="background-image: url('{{cameraPage.thumbnail}}');"></Label> -->
+            
+            
+                        <Label text="{{page.title}}" class="sheet" *ngFor="let page of pages.slice().reverse()" (tap)="switchPage(page.id)" [ngClass]="{'active': activePage == page}" style="background-image: url('{{page.thumbnail}}');"></Label>
+                    </StackLayout>
+                </ScrollView>
+            
+                
+                </GridLayout>
+            
+</StackLayout>

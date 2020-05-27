@@ -1,0 +1,34 @@
+
+
+.mainContent {background-size:100% 100%; background-image: ~/images/back.jpg; }
+
+.radlist {background-color: transparent;}
+
+#logo {width:80; horizontal-align:center; margin-top:25; margin-bottom:10;}
+
+.header {
+    background-color: #90c5a9;
+    height:80;
+}
+
+
+.pageTitle {background-color: #618673;}
+.pageTitle Label {color: #ffffff; font-size:14; margin: 0 0 5 20; font-weight: bold;}
+
+
+
+.avatar {width:60; height:60; border-radius:30; margin:10;}
+
+.messageBlock { margin:10 20 0 20; background-color: #dcefe5; border-radius:10;}
+.messageBlocknew { margin:10 20 0 20; background-color:rgb(255, 255, 255); border-radius:10;}
+
+.deleteConversation {color:#ec5f70; font-size:30; vertical-align:center; margin-left: 50; opacity:0; }
+
+.messageName { color:#2c3a42;             font-size:13; margin-top:5;  }
+.messageExcerp { color:rgba(44,58,66,.7); font-size:12; margin-top:8;}
+.messageTime { color:rgba(44,58,66,.5);   font-size:12; margin-top:8; margin-bottom:5; }
+.messageCircle {color : #59a9d5; margin-left:10;}
+.messageArrow { color:rgba(44,58,66,.5); margin-left:15; text-align:right; margin-right:10; font-size:20; }
+
+.newMessagesBullet {background-color:#fff; border-radius:8; color:rgba(162,196,213,1); font-weight:bold; margin-left:0; width:16; height:16; horizontal-align:left; vertical-align:top; text-align:center; margin:2; border-color:rgba(162,196,213,0.8); border-width:1;}
+.loadingText {text-align: center; margin:20; color:#fff;}

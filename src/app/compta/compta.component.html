@@ -1,0 +1,208 @@
+<StackLayout class="mainContent">
+  <StackLayout class="header">
+    <Image src="~/images/logo.png" id="logo"></Image>
+  </StackLayout>
+  <StackLayout class="spikes"> </StackLayout>
+
+  <GridLayout>
+    <ScrollView>
+      <StackLayout *ngIf="data.stripeModel.loaded">
+        <StackLayout class="pageTitle">
+          <Label text="Crédit"></Label>
+        </StackLayout>
+
+        <gridLayout
+          columns="*,*"
+          ,
+          rows="auto,auto"
+          *ngIf="data.user.prof == 1"
+        >
+          <label
+            col="0"
+            row="0"
+            text="Solde validé"
+            class="formlabel centered"
+          ></label>
+          <label
+            col="1"
+            row="0"
+            text="Solde en attente"
+            class="formlabel centered"
+          ></label>
+          <label
+            col="0"
+            row="1"
+            text="{{ data.stripeModel.balance.available[0].amount / 100 }} {{
+              data.stripeModel.balance.available.currency
+            }}"
+            class="balance centered"
+          ></label>
+          <label
+            col="1"
+            row="1"
+            text="{{ data.stripeModel.balance.pending[0].amount / 100 }} {{
+              data.stripeModel.balance.pending.currency
+            }}"
+            class="balance centered"
+          ></label>
+        </gridLayout>
+
+        <gridLayout columns="*" , rows="auto,auto" *ngIf="data.user.prof == 0">
+          <label
+            col="0"
+            row="0"
+            text="Crédit"
+            class="formlabel centered"
+          ></label>
+          <label
+            col="0"
+            row="1"
+            text="{{ -data.stripeModel.account.balance / 100 }} €"
+            class="balance centered"
+          ></label>
+        </gridLayout>
+
+        // Virements en cours de traitement
+        <StackLayout class="pageTitle" *ngIf="data.user.prof == 1">
+          <Label text="Virements en cours de traitement"></Label>
+        </StackLayout>
+        <StackLayout *ngIf="data.user.prof == 1">
+
+          // Si pas de virements en cours de traitement
+          <StackLayout
+          class="transactionCard"
+          *ngIf="data.stripeModel.pendingTransactions.length == 0"
+        >
+          <Label
+            text="Pas de virement en cours de traitement"
+          ></Label>
+        </StackLayout>
+
+          <StackLayout
+            class="transactionCard"
+            *ngFor="let transaction of data.stripeModel.pendingTransactions"
+          >
+            <Label
+              *ngIf="transaction.status == 'pending'"
+              text="Montant : {{ transaction.amount / 100 }} €"
+            ></Label>
+            <Label
+              *ngIf="transaction.status == 'pending'"
+              text="Status: En transit"
+            ></Label>
+
+            <Label
+              *ngIf="transaction.status == 'pending'"
+              text="Lancé: {{ transaction.created }}"
+            ></Label>
+            <Label
+              *ngIf="transaction.status == 'pending'"
+              text="Prévu: {{ transaction.available_on }}"
+            ></Label>
+          </StackLayout>
+        </StackLayout>
+
+        // Virements reçus
+        <StackLayout class="pageTitle" *ngIf="data.user.prof == 1">
+          <Label text="Virements reçus"></Label>
+        </StackLayout>
+        <StackLayout *ngIf="data.user.prof == 1">
+
+          // Si pas de virements reçus
+          <StackLayout
+          class="transactionCard"
+          *ngIf="data.stripeModel.availableTransactions.length == 0"
+        >
+          <Label
+            text="Pas de virement reçus"
+          ></Label>
+        </StackLayout>
+
+          <StackLayout
+            class="transactionCard"
+            *ngFor="let transaction of data.stripeModel.availableTransactions"
+          >
+            <Label
+              *ngIf="transaction.status == 'available'"
+              text="Montant : {{ transaction.amount / 100 }} €"
+            ></Label>
+            <Label
+              *ngIf="transaction.status == 'available'"
+              text="Status: Reçus"
+            ></Label>
+
+            <Label
+              *ngIf="transaction.status == 'available'"
+              text="Lancé: {{ transaction.created }}"
+            ></Label>
+            <Label
+              *ngIf="transaction.status == 'available'"
+              text="Prévu: {{ transaction.available_on }}"
+            ></Label>
+          </StackLayout>
+        </StackLayout>
+
+        <StackLayout class="pageTitle" *ngIf="data.user.prof == 1">
+          <Label text="Données bancaires"></Label>
+        </StackLayout>
+
+        <StackLayout
+          class="accountData"
+          *ngIf="
+            data.user.prof == 1 &&
+            data.stripeModel.account.external_accounts.data.length > 0
+          "
+        >
+          <Label
+            text="Banque : {{
+              data.stripeModel.account.external_accounts.data[0].bank_name
+            }}"
+          ></Label>
+          <Label
+            text="Titulaire : {{
+              data.stripeModel.account.external_accounts.data[0]
+                .account_holder_name
+            }}"
+          ></Label>
+          <Label
+            text="Derniers 4 numéros IBAN : {{
+              data.stripeModel.account.external_accounts.data[0].last4
+            }}"
+          ></Label>
+          <Label
+            text="BIC : {{
+              data.stripeModel.account.external_accounts.data[0].routing_number
+            }}"
+          ></Label>
+        </StackLayout>
+
+        <label
+          text="Veuillez ajouter un compte!"
+          class="missingAccount"
+          *ngIf="
+            data.user.prof == 1 &&
+            data.stripeModel.account.external_accounts.data.length == 0
+          "
+        ></label>
+
+        <ns-btn
+          text="Introduire nouveau compte"
+          *ngIf="data.user.prof == 1"
+          (taponbtn)="newAccount()"
+          style="margin: 5;"
+        ></ns-btn>
+      </StackLayout>
+
+      <StackLayout *ngIf="!data.stripeModel.loaded">
+        <StackLayout class="pageTitle">
+          <Label text="Comptabilité"></Label>
+        </StackLayout>
+        <label
+          text="Chargement de vos données comptables.."
+          class="balance centered"
+          style="margin: 20 20 20 20;"
+        ></label>
+      </StackLayout>
+    </ScrollView>
+  </GridLayout>
+</StackLayout>

@@ -1,0 +1,40 @@
+<StackLayout class="mainContent">
+
+        <StackLayout class="header">
+                <Image src="~/images/logo.png" id="logo" ></Image>
+                
+        </StackLayout>
+        <StackLayout class="spikes">                
+        </StackLayout>
+        <StackLayout class="pageTitle">
+                <Label text="Mon Agenda ({{data.agendaModel.days.length}})"></Label>                
+        </StackLayout>
+       
+        <ScrollView>
+                <StackLayout *ngIf="data.agendaModel.loaded">
+                        <StackLayout  *ngFor="let day of data.agendaModel.days " class="Block"  >
+                                <Label class="dayTitle" text="{{dayTitle(day)}}"></Label>
+                                <GridLayout *ngFor=" let hour of day " rows="auto,auto" columns ="*,auto" (tap)="hourTap(hour)" class="Hour">
+                
+                
+                                        <Label rowspan="2" row="0" col="0" class="hourTime" textWrap="true"  text="{{data.humantimeuts(hour.start_uts)}} - {{data.humantimeuts(hour.end_uts)}}"></Label>
+                                        
+                                        <Label row="0" col="1" *ngIf="data.user.prof == 0" class="HourRemoteName" text="{{hour.prof_fname}} {{hour.prof_lname}} "></Label>
+                                        <Label row="0" col="1" *ngIf="data.user.prof == 1" class="HourRemoteName" text="{{hour.user_fname}} {{hour.user_lname}} "></Label>
+                                        
+                                        <Label row="1" col="1" *ngIf="hour.confirmed == 0 && data.user.prof == 0" class="HourStatus" text="Statut : En attente de réponse du prof"></Label>
+                                        <Label row="1" col="1" *ngIf="hour.confirmed == 0 && data.user.prof == 1" class="HourStatus" text="Statut : En attente de votre réponse"></Label>
+                                        <Label row="1" col="1" *ngIf="hour.confirmed == 1" class="HourStatus" text="Statut : confirmé"></Label>
+                                        
+                                </GridLayout>
+                        </StackLayout>
+                        
+                        
+                        
+
+                </StackLayout>
+                <Label *ngIf="data.agendaModel.loaded && data.agendaModel.days.length == 0" class="dayTitle" text="Aucun cours à afficher"  style="margin-top:20"></Label>
+                <Label *ngIf="!data.agendaModel.loaded" class="dayTitle" text="Chargement.." style="margin-top:20"></Label>
+        </ScrollView>
+  
+</StackLayout>

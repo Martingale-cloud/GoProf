@@ -1,0 +1,255 @@
+<GridLayout class="loginscreen">
+    <StackLayout>
+        
+        
+        
+        <!-- Login form-->
+        <ScrollView *ngIf="step == 'login'">
+            <StackLayout>
+                <Image src="~/images/logo.png" id="logo"></Image>
+                <GridLayout columns="150,*" rows="auto,auto" style="margin-top:40; margin-bottom:20;">
+                        <label col="0" row="0" text="Email" class="formlabel"></label>
+                        <TextField col="1" row="0" #username autocorrect="false" autocapitalizationType="none" [(ngModel)]="loginForm.mail"></TextField>
+            
+                        <label col="0" row="1" text="Mot de passe" class="formlabel"></label>
+                        <TextField col="1" row="1" #password secure="true" [(ngModel)]="loginForm.pass"></TextField>
+                </GridLayout>
+                <gridLayout columns="*,auto,auto,*" rows="auto" *ngIf="step == 'login' && data.socketConnected" >
+                        <StackLayout col="1"><ns-btn text="Retour" (taponbtn)="openNone()" style="margin:5;"  color="#666666"></ns-btn></StackLayout>
+                        <StackLayout col="2"><ns-btn text="Me connecter" (taponbtn)="login()" style="margin:5;" ></ns-btn></StackLayout>    
+                </gridLayout>
+                <Label class="rp" (tap)="rp()" text="Mot de passe oublié?"></Label>
+
+            </StackLayout>
+        </ScrollView>
+
+
+        <!-- Register form -->
+        <ScrollView *ngIf="step == 'register'">
+            <StackLayout *ngIf="registerForm.prof == 0">
+                    <Image src="~/images/logo.png" id="logo"></Image>
+
+                    <GridLayout columns="150,*" rows="auto">
+                        <label col="0" text="Nom" class="formlabel"></label>
+                        <TextField col="1" autocorrect="false" [(ngModel)]="registerForm.lname"></TextField>
+                    </GridLayout>
+            
+                    <GridLayout columns="150,*" rows="auto">
+                        <label col="0" text="Prénom" class="formlabel"></label>
+                        <TextField col="1" autocorrect="false" [(ngModel)]="registerForm.fname"></TextField>
+                    </GridLayout>
+
+                    <GridLayout columns="150,*" rows="auto">    
+                        <label col="0" text="E-mail" class="formlabel"></label>
+                        <TextField col="1" autocorrect="false" autocapitalizationType="none" [(ngModel)]="registerForm.mail"></TextField>
+                    </GridLayout>
+
+                    <GridLayout columns="150,*" rows="auto">    
+                        <label col="0" text="Nr de téléphone" class="formlabel"></label>
+                        <TextField col="1" autocorrect="false" autocapitalizationType="none" [(ngModel)]="registerForm.phone"></TextField>
+                    </GridLayout>
+
+                    <GridLayout columns="150,*" rows="auto">
+                        <label col="0" text="Mot de passe" class="formlabel"></label>
+                        <TextField col="1"  secure="true" [(ngModel)]="registerForm.pass"></TextField>
+                    </GridLayout>
+                    
+                    <GridLayout columns="150,*" rows="auto">
+                        <label col="0" text="Mot de passe" class="formlabel"></label>
+                        <TextField col="1"  secure="true" [(ngModel)]="registerForm.pass2"></TextField>
+                    </GridLayout>
+
+                    <label text="Je suis un" class="formlabel"></label>
+        
+                    <GridLayout columns="*,auto,auto,auto,*" rows="auto,auto">
+                            <StackLayout col="1" row="0"><ns-btn text="élève" [highlight]="registerForm.prof == 0" (taponbtn)="registerForm.prof = 0" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                            <StackLayout col="2" row="0"><ns-btn text="prof" [highlight]="registerForm.prof == 1" (taponbtn)="registerForm.prof = 1" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                    </GridLayout>
+
+                    <label text="Besoin d'aide en" class="formlabel"></label>
+                        
+                    <GridLayout columns="*,auto,auto,*" rows="auto,auto,auto,auto,auto">
+                        <StackLayout col="1" row="0"><ns-btn text="Maths" [highlight]="registerForm.need_math" (taponbtn)="registerForm.need_math = !registerForm.need_math" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                        <StackLayout col="2" row="0"><ns-btn text="Histoire" [highlight]="registerForm.need_histoire" (taponbtn)="registerForm.need_histoire = !registerForm.need_histoire" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                        <StackLayout col="1" row="1"><ns-btn text="Geographie" [highlight]="registerForm.need_geo" (taponbtn)="registerForm.need_geo = !registerForm.need_geo" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                        <StackLayout col="2" row="1"><ns-btn text="Français" [highlight]="registerForm.need_francais" (taponbtn)="registerForm.need_francais = !registerForm.need_francais" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                        <StackLayout col="1" row="2"><ns-btn text="Anglais" [highlight]="registerForm.need_anglais" (taponbtn)="registerForm.need_anglais = !registerForm.need_anglais" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                        <StackLayout col="2" row="2"><ns-btn text="Espagnol" [highlight]="registerForm.need_espagnol" (taponbtn)="registerForm.need_espagnol = !registerForm.need_espagnol" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                        <StackLayout col="1" row="3"><ns-btn text="Allemand" [highlight]="registerForm.need_allemand" (taponbtn)="registerForm.need_allemand = !registerForm.need_allemand" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                        <StackLayout col="2" row="3"><ns-btn text="Physique" [highlight]="registerForm.need_physique" (taponbtn)="registerForm.need_physique = !registerForm.need_physique" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                        <StackLayout col="1" row="4"><ns-btn text="SVT" [highlight]="registerForm.need_svt" (taponbtn)="registerForm.need_svt = !registerForm.need_svt" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                    </GridLayout> 
+        
+                    <label text="Je suis en" class="formlabel"></label>
+                    
+        
+                    
+                    <GridLayout columns="*,auto,auto,auto,*" rows="auto,auto,auto">
+                            <StackLayout col="1" row="0"><ns-btn text="cm1" [highlight]="registerForm.classe == 'cm1'" (taponbtn)="registerForm.classe = 'cm1'" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                            <StackLayout col="2" row="0"><ns-btn text="cm2" [highlight]="registerForm.classe == 'cm2'" (taponbtn)="registerForm.classe = 'cm2'" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                            <StackLayout col="3" row="0"><ns-btn text="6e" [highlight]="registerForm.classe == '6e'" (taponbtn)="registerForm.classe = '6e'" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                            <StackLayout col="1" row="1"><ns-btn text="5e" [highlight]="registerForm.classe == '5e'" (taponbtn)="registerForm.classe = '5e'" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                            <StackLayout col="2" row="1"><ns-btn text="4e" [highlight]="registerForm.classe == '4e'" (taponbtn)="registerForm.classe = '4e'" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                            <StackLayout col="3" row="1"><ns-btn text="3e" [highlight]="registerForm.classe == '3e'" (taponbtn)="registerForm.classe = '3e'" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                            <StackLayout col="1" row="2"><ns-btn text="2e" [highlight]="registerForm.classe == '2e'" (taponbtn)="registerForm.classe = '2e'" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                            <StackLayout col="2" row="2"><ns-btn text="1e" [highlight]="registerForm.classe == '1e'" (taponbtn)="registerForm.classe = '1e'" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                            <StackLayout col="3" row="2"><ns-btn text="term" [highlight]="registerForm.classe == 'term'" (taponbtn)="registerForm.classe = 'term'" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                    </GridLayout> 
+
+                    <!-- Date de naissance -->
+                    <label text="Date de naissance" class="formlabel"></label>
+                    <DatePicker class="dobPicker" (loaded)="onPickerLoaded($event)" verticalAlignment="center"></DatePicker>
+
+
+                    <GridLayout columns="*,auto,auto,*" rows="auto" *ngIf="step == 'register' && data.socketConnected" style="margin-bottom:30; margin-top:30;">
+                        <StackLayout col="1"><ns-btn text="Retour" (taponbtn)="openNone()" style="margin:5;"  color="#666666"></ns-btn></StackLayout>
+                        <StackLayout col="2"><ns-btn text="M'inscrire" (taponbtn)="register()" style="margin:5;"></ns-btn></StackLayout>    
+                    </GridLayout>
+                
+            </StackLayout>
+
+
+
+            <!-- Prof -->
+            <StackLayout *ngIf="registerForm.prof == 1">
+                <Image src="~/images/logo.png" id="logo"></Image>
+
+                <GridLayout columns="150,*" rows="auto">
+                    <label col="0" text="Nom" class="formlabel"></label>
+                    <TextField col="1" autocorrect="false" [(ngModel)]="registerForm.lname"></TextField>
+                </GridLayout>
+        
+                <GridLayout columns="150,*" rows="auto">
+                    <label col="0" text="Prénom" class="formlabel"></label>
+                    <TextField col="1" autocorrect="false" [(ngModel)]="registerForm.fname"></TextField>
+                </GridLayout>
+
+
+                <GridLayout columns="150,*" rows="auto">    
+                    <label col="0" text="E-mail" class="formlabel"></label>
+                    <TextField col="1" autocorrect="false" autocapitalizationType="none" [(ngModel)]="registerForm.mail"></TextField>
+                </GridLayout>
+
+                <GridLayout columns="150,*" rows="auto">    
+                    <label col="0" text="Nr de téléphone" class="formlabel"></label>
+                    <TextField col="1" autocorrect="false" autocapitalizationType="none" [(ngModel)]="registerForm.phone"></TextField>
+                </GridLayout>
+
+                <GridLayout columns="150,*" rows="auto">
+                    <label col="0" text="Mot de passe" class="formlabel"></label>
+                    <TextField col="1"  secure="true" [(ngModel)]="registerForm.pass"></TextField>
+                </GridLayout>
+                
+                <GridLayout columns="150,*" rows="auto">
+                    <label col="0" text="Mot de passe" class="formlabel"></label>
+                    <TextField col="1"  secure="true" [(ngModel)]="registerForm.pass2"></TextField>
+                </GridLayout>
+
+                <label text="Vous êtes un" class="formlabel"></label>
+    
+                <GridLayout columns="*,auto,auto,auto,*" rows="auto,auto">
+                        <StackLayout col="1" row="0"><ns-btn text="élève" [highlight]="registerForm.prof == 0" (taponbtn)="registerForm.prof = 0" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                        <StackLayout col="2" row="0"><ns-btn text="prof" [highlight]="registerForm.prof == 1" (taponbtn)="registerForm.prof = 1" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                </GridLayout>
+
+                <GridLayout columns="150,*" rows="auto">
+                    <label col="0" text="Code école" class="formlabel"></label>
+                    <TextField col="1" autocorrect="false" [(ngModel)]="registerForm.schoolcode"></TextField>
+                </GridLayout>
+
+                <label text="Vos matières" class="formlabel"></label>
+                
+                <GridLayout columns="*,auto,auto,*" rows="auto,auto,auto,auto,auto">
+                    <StackLayout col="1" row="0"><ns-btn text="Maths" [highlight]="registerForm.need_math" (taponbtn)="registerForm.need_math = !registerForm.need_math" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                    <StackLayout col="2" row="0"><ns-btn text="Histoire" [highlight]="registerForm.need_histoire" (taponbtn)="registerForm.need_histoire = !registerForm.need_histoire" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                    <StackLayout col="1" row="1"><ns-btn text="Geographie" [highlight]="registerForm.need_geo" (taponbtn)="registerForm.need_geo = !registerForm.need_geo" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                    <StackLayout col="2" row="1"><ns-btn text="Français" [highlight]="registerForm.need_francais" (taponbtn)="registerForm.need_francais = !registerForm.need_francais" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                    <StackLayout col="1" row="2"><ns-btn text="Anglais" [highlight]="registerForm.need_anglais" (taponbtn)="registerForm.need_anglais = !registerForm.need_anglais" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                    <StackLayout col="2" row="2"><ns-btn text="Espagnol" [highlight]="registerForm.need_espagnol" (taponbtn)="registerForm.need_espagnol = !registerForm.need_espagnol" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                    <StackLayout col="1" row="3"><ns-btn text="Allemand" [highlight]="registerForm.need_allemand" (taponbtn)="registerForm.need_allemand = !registerForm.need_allemand" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                    <StackLayout col="2" row="3"><ns-btn text="Physique" [highlight]="registerForm.need_physique" (taponbtn)="registerForm.need_physique = !registerForm.need_physique" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                    <StackLayout col="1" row="4"><ns-btn text="SVT" [highlight]="registerForm.need_svt" (taponbtn)="registerForm.need_svt = !registerForm.need_svt" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                </GridLayout> 
+
+
+                <label  text="A props de moi" class="formlabel"></label>
+                <TextView autocorrect="true" autocapitalizationType="sentences"  minheight="100" [(ngModel)]="registerForm.bio"></TextView>
+
+                <!-- adresse -->
+                <label text="Adresse (rue nr)" class="formlabel"></label>
+                <TextField [(ngModel)]="registerForm.address_line1"></TextField>
+
+                <GridLayout columns="150,*" rows="auto">
+                    <label col="0" text="Code Postal" class="formlabel"></label>
+                    <TextField col="1" autocorrect="false" [(ngModel)]="registerForm.address_postal_code"></TextField>
+                </GridLayout>
+
+                <GridLayout columns="150,*" rows="auto">
+                    <label col="0" text="Ville" class="formlabel"></label>
+                    <TextField col="1" autocorrect="false" [(ngModel)]="registerForm.address_city"></TextField>
+                </GridLayout>
+
+                <!-- Date de naissance -->
+                <label text="Date de naissance" class="formlabel"></label>
+                <DatePicker class="dobPicker" (loaded)="onPickerLoaded($event)" verticalAlignment="center"></DatePicker>
+
+                        <!-- CGU Stripe + interface-->
+                <label text="Conditions d'utilisation" class="formlabel"></label>
+                <webView id="webView" style="height:150; border-color:#7FC2B8; border-width: 5 0 5 0;" (loaded)="initWebView()" ></webView> 
+                <label textwrap="true" text="En vous inscrivant, vous acceptez les cgu GoProf et Stripe" class="formlabelSmall"></label>
+                
+                
+                <label textwrap="true" *ngIf="waitingforregister" text="Veuillez patienter..." class="formlabel" style="text-align:center;"></label>
+
+                
+
+
+
+                <GridLayout columns="*,auto,auto,*" rows="auto" *ngIf="step == 'register' && data.socketConnected && !waitingforregister" style="margin-bottom:30; margin-top:10;" >
+                    <StackLayout col="1"><ns-btn text="Retour" (taponbtn)="openNone()" style="margin:5;"  color="#666666"></ns-btn></StackLayout>
+                    <StackLayout col="2"><ns-btn text="M'inscrire" (taponbtn)="register()" style="margin:5;"></ns-btn></StackLayout>    
+                </GridLayout>
+
+
+
+                
+            
+        </StackLayout>
+
+
+        </ScrollView>
+        
+
+
+
+
+        <!-- nothing -->
+        <StackLayout *ngIf="step == 'none' || step == 'wait'">
+                <Image src="~/images/logo.png" id="logo"></Image>
+                
+                <!-- perso image -->
+                <Image src="~/images/perso.png" id="perso"  ></Image>
+
+                <label text="Veuillez Patienter un instant.." class="wait" *ngIf="step == 'wait' || !data.socketConnected"></label>
+                
+                
+                <gridLayout columns="*,auto,auto,*" rows="auto" *ngIf="step == 'none' && data.socketConnected">
+                    <StackLayout col="1"><ns-btn text="Me connecter" (taponbtn)="openLogin()" style="margin:5;"></ns-btn></StackLayout>
+                    <StackLayout col="2"><ns-btn text="M'inscrire" (taponbtn)="openRegister()" style="margin:5;" color="#296062"></ns-btn></StackLayout>    
+                </gridLayout>
+
+                <Label class="versioncode" text="Version 2001-0854"></Label>
+
+        </StackLayout>
+        
+
+        
+
+
+    
+
+    </StackLayout>  
+    
+    
+
+</GridLayout>

@@ -1,0 +1,45 @@
+
+
+.mainContent {background-size:100% 100%; background-image: ~/images/back.jpg; }
+
+.radlist {background-color: transparent;}
+
+#logo {width:80; horizontal-align:center; margin-top:25; margin-bottom:10;}
+
+.header {
+    background-color: #90c5a9;
+    height:80;
+}
+
+
+.pageTitle {background-color: #618673;}
+.pageTitle Label {color: #ffffff; font-size:14; margin: 0 0 5 20; font-weight: bold;}
+
+.notif {background-color: #d6d6d7; }
+.notifTitle {font-size: 14px; color: #000; font-weight:bold; margin:10 20 5 20;}
+.notifTexte {font-size: 13px; color: #000; margin:5 20 5 20;}
+.notifDate {font-size: 11px; color: #444; margin:5 20 10 20;}
+
+
+
+.listItemStackLayout {
+    
+    padding-left: 5;
+}
+
+.acceptGridLayout {
+    background-color: #90C5A9;
+    padding: 16;
+    color:#fff;
+}
+
+.rejectGridLayout {
+    background-color: #b80505;
+    padding: 16;
+    color:#fff;
+}
+
+
+.swipetemplateLabel {
+    font-size: 15;
+}

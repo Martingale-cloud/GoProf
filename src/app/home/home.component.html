@@ -1,0 +1,27 @@
+<StackLayout class="mainContent">
+
+        <StackLayout class="header">
+                <Image src="~/images/logo.png" id="logo" (tap)="debug()" ></Image>
+                
+        </StackLayout>
+        <StackLayout class="spikes2">                
+        </StackLayout>
+        <StackLayout *ngIf="data.user.prof == 1" class="visibility">
+                <GridLayout columns="*,auto,auto,*" rows="auto" >
+                        <StackLayout col="1" row="0" style="padding-top:20;"><ns-btn text="disponible" [highlight]="data.user.available == 2" (taponbtn)="setAvailable(2)" color="#296062"></ns-btn></StackLayout>
+                        <StackLayout col="2" row="0" style="padding-top:20;"><ns-btn text="indisponible" [highlight]="data.user.available == 1" (taponbtn)="setAvailable(1)" ></ns-btn></StackLayout>
+                </GridLayout>
+
+        </StackLayout>
+        <StackLayout *ngIf="data.user.id != 0">
+
+                <Image src="~/images/b1e.png" class="homeb " (tap)="goto('profs')" *ngIf="data.user.prof == 0" style="margin-top:20; margin-bottom:20;"></Image>
+                <Image src="~/images/b1p.png" class="homeb " (tap)="goto('conversations')" *ngIf="data.user.prof == 1" style="margin-bottom:20;"></Image>
+                <Image src="~/images/b2j.png" class="homeb right" (tap)="goto('game')" *ngIf="data.user.game > 0" style="margin-bottom:0;" ></Image>
+                <Image src="~/images/b3a.png" class="homeb " (tap)="goto('cours')" style="margin-bottom:0;" ></Image>
+        </StackLayout>
+
+
+</StackLayout>
+
+

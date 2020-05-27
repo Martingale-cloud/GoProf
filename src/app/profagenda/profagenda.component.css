@@ -1,0 +1,44 @@
+
+
+.mainContent {background-size:100% 100%; background-image: ~/images/back.jpg; }
+
+
+#logo {width:80; horizontal-align:center; margin-top:25; margin-bottom:10;}
+
+.header {
+    background-color: #90c5a9;
+    height:80;
+}
+
+
+.pageTitle {background-color: #618673;}
+.pageTitle Label {color: #ffffff; font-size:14; margin: 0 0 5 20; font-weight: bold;}
+
+/*
+.monthContainer {background-color: #838ea2; }
+.otherMonthBtn {padding:10 20; font-size: 20; color:#fff; margin:0;}
+.monthLabel {color: #ffffff; font-weight: bold; font-size: 14; horizontal-align:center; text-align: center; margin:0;}
+
+
+.daysContainer {background-color: #ffffff; }
+
+.day {border-width:1; border-color:#f3f3f3;}
+.day .dayLabel {color: #bbb; font-size: 11; padding:4;}
+.activeDay{border-color:#838ea2;  }
+
+.activeDay .dayLabel {color:#838ea2; }
+.activeMonth .dayLabel {color: #000;}
+*/
+
+
+.Block { margin:10 20 0 20; background-color:rgba(255,255,255,.4); border-radius:5;}
+.Hour { margin:0 5 6 5; background-color:rgba(255,255,255,.7); border-radius:3;}
+.Hour.notavailable { opacity:.3; }
+.Hour.deleted { opacity:.3; }
+.Hour.deleted Label { text-decoration: line-through; }
+
+.avatar {width:60; height:60; border-radius:30; margin:10;}
+
+.dayTitle {text-align: center; color: #000000; font-size: 14; margin-top:6; margin-bottom: 8; font-weight: bold;}
+.hourTime {text-align: left; color: #618673; font-size: 16; margin-top:6; font-weight: bold; margin-bottom:6; margin-left: 10px;}
+.Price {text-align: right; color: rgba(0,0,0,.7); font-size: 12; margin-bottom: 6; margin-right: 10px;}

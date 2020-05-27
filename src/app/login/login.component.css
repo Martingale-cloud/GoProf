@@ -1,0 +1,27 @@
+
+
+.loginscreen {
+    background-image: url("~/images/back.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    
+}
+#loginbox {}
+
+
+
+
+#logo {opacity:1; width:50%;  horizontal-align:center; margin-top: 70; margin-bottom: 10;}
+#perso {opacity:1; width:30%; horizontal-align:center; margin-top: 10; margin-bottom: 10;}
+
+.wait { font-size: 14; color:#555;  padding:10; margin:5; font-weight: bold; text-align: center; }
+
+.formlabel { font-size: 14; color:#555;  padding:10; margin:5; font-weight: bold; }
+.formlabelSmall { font-size: 11; color:#444;  padding:10; margin:20; text-align: center;  }
+TextField {  font-size: 14; color:#333;  padding:10; margin:5 20 5 20; border-color: rgba(0,0,0,.6); border-width:0 0 1 0; }
+
+.rp {color:#666666; font-size: 12; text-align: center; text-decoration: underline; padding:15; }
+.versioncode {color:rgba(255,255,255,.3); font-size: 10; text-align: center; padding:15; margin-top:10px; }
+
+.dobPicker {font-size: 12; color:#555; height:120;}

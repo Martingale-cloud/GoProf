@@ -1,0 +1,97 @@
+<StackLayout class="mainContent">
+
+        <StackLayout class="header">
+                <Image src="~/images/logo.png" id="logo" ></Image>
+                
+        </StackLayout>
+        <StackLayout class="spikes">                
+        </StackLayout>
+
+        <ScrollView>
+                <StackLayout *ngIf="step == 1">      
+                        <Label class="formText" text="Je souhaite : "></Label>
+                        <Label class="btnText" text="Ajouter des cours" (tap)="formData.add = true" [ngClass]="{'active' : formData.add }"></Label>
+                        <Label class="btnText" text="Retirer des cours" (tap)="formData.add = false" [ngClass]="{'active' : !formData.add }"></Label>
+                        <StackLayout><ns-btn text="Suivant" (taponbtn)="step = 2" style="margin:15 5 5;"  color="#C45177"></ns-btn></StackLayout>
+                </StackLayout> 
+
+                <StackLayout *ngIf="step == 2">      
+                        <Label class="formText" text="Selection des jours à ajouter : " *ngIf="formData.add"></Label>
+                        <Label class="formText" text="Selection des jours à retirer : " *ngIf="!formData.add"></Label>
+                        <GridLayout columns="20,*,*,20" style="margin-top:40;">
+                                <Label col="1" class="btnText" text="Lundi" (tap)="formData.days.lun = !formData.days.lun" [ngClass]="{'active' : formData.days.lun }"></Label>
+                                <Label col="2" class="btnText" text="Mardi" (tap)="formData.days.mar = !formData.days.mar" [ngClass]="{'active' : formData.days.mar }"></Label>
+                        </GridLayout>
+                        <GridLayout columns="20,*,*,20">
+                                <Label col="1" class="btnText" text="Mercredi" (tap)="formData.days.mer = !formData.days.mer" [ngClass]="{'active' : formData.days.mer }"></Label>
+                                <Label col="2" class="btnText" text="Jeudi" (tap)="formData.days.jeu = !formData.days.jeu" [ngClass]="{'active' : formData.days.jeu }"></Label>
+                        </GridLayout>
+                        <GridLayout columns="20,*,*,20">
+                                <Label col="1" class="btnText" text="Vendredi" (tap)="formData.days.ven = !formData.days.ven" [ngClass]="{'active' : formData.days.ven }"></Label>
+                                <Label col="2" class="btnText" text="Samedi" (tap)="formData.days.sam = !formData.days.sam" [ngClass]="{'active' : formData.days.sam }"></Label>
+                        </GridLayout>
+                        <GridLayout columns="20,*,20">
+                                <Label col="1" class="btnText" text="Dimanche" (tap)="formData.days.dim = !formData.days.dim" [ngClass]="{'active' : formData.days.dim }"></Label>
+                        </GridLayout>
+
+                        <GridLayout columns="20,*,*,20" style="margin-top:40;">
+                                <StackLayout col="1"><ns-btn text="Précédent" (taponbtn)="step = 1" style="margin:15 5 5;"  color="#C45177"></ns-btn></StackLayout>
+                                <StackLayout col="2"><ns-btn text="Suivant" (taponbtn)="step = 3" style="margin:15 5 5;"  color="#C45177"></ns-btn></StackLayout>
+                        </GridLayout>
+                </StackLayout>
+                
+                
+                <StackLayout *ngIf="step == 3">      
+                        <Label class="formText" text="Selection des tranches horaires à ajouter : " *ngIf="formData.add"></Label>
+                        <Label class="formText" text="Selection des tranches horaires à retirer : " *ngIf="!formData.add"></Label>
+                        
+                        <GridLayout columns="20,*,*,*,20" rows="auto,auto,auto,auto,auto" style="margin-top:40;">
+                                <Label col="1" row="0" class="btnText" text="6h-7h" (tap)="formData.hours.h6 = !formData.hours.h6" [ngClass]="{'active' : formData.hours.h6 }"></Label>
+                                <Label col="2" row="0" class="btnText" text="7h-8h" (tap)="formData.hours.h7 = !formData.hours.h7" [ngClass]="{'active' : formData.hours.h7 }"></Label>
+                                <Label col="3" row="0" class="btnText" text="8h-9h" (tap)="formData.hours.h8 = !formData.hours.h8" [ngClass]="{'active' : formData.hours.h8 }"></Label>
+                                <Label col="1" row="1" class="btnText" text="9h-10h" (tap)="formData.hours.h9 = !formData.hours.h9" [ngClass]="{'active' : formData.hours.h9 }"></Label>
+                                <Label col="2" row="1" class="btnText" text="10h-11h" (tap)="formData.hours.h10 = !formData.hours.h10" [ngClass]="{'active' : formData.hours.h10 }"></Label>
+                                <Label col="3" row="1" class="btnText" text="11h-12h" (tap)="formData.hours.h11 = !formData.hours.h11" [ngClass]="{'active' : formData.hours.h11 }"></Label>
+                                <Label col="1" row="2" class="btnText" text="12h-13h" (tap)="formData.hours.h12 = !formData.hours.h12" [ngClass]="{'active' : formData.hours.h12 }"></Label>
+                                <Label col="2" row="2" class="btnText" text="13h-14h" (tap)="formData.hours.h13 = !formData.hours.h13" [ngClass]="{'active' : formData.hours.h13 }"></Label>
+                                <Label col="3" row="2" class="btnText" text="14h-15h" (tap)="formData.hours.h14 = !formData.hours.h14" [ngClass]="{'active' : formData.hours.h14 }"></Label>
+                                <Label col="1" row="3" class="btnText" text="15h-16h" (tap)="formData.hours.h15 = !formData.hours.h15" [ngClass]="{'active' : formData.hours.h15 }"></Label>
+                                <Label col="2" row="3" class="btnText" text="16h-17h" (tap)="formData.hours.h16 = !formData.hours.h16" [ngClass]="{'active' : formData.hours.h16 }"></Label>
+                                <Label col="3" row="3" class="btnText" text="17h-18h" (tap)="formData.hours.h17 = !formData.hours.h17" [ngClass]="{'active' : formData.hours.h17 }"></Label>
+                                <Label col="1" row="4" class="btnText" text="18h-19h" (tap)="formData.hours.h18 = !formData.hours.h18" [ngClass]="{'active' : formData.hours.h18 }"></Label>
+                                <Label col="2" row="4" class="btnText" text="19h-20h" (tap)="formData.hours.h19 = !formData.hours.h19" [ngClass]="{'active' : formData.hours.h19 }"></Label>
+                                <Label col="3" row="4" class="btnText" text="20h-21h" (tap)="formData.hours.h20 = !formData.hours.h20" [ngClass]="{'active' : formData.hours.h20 }"></Label>
+                        </GridLayout>
+ 
+
+                        <GridLayout columns="20,*,*,20" style="margin-top:40;">
+                                <StackLayout col="1"><ns-btn text="Précédent" (taponbtn)="step = 2" style="margin:15 5 5;"  color="#C45177"></ns-btn></StackLayout>
+                                <StackLayout col="2"><ns-btn text="Suivant" (taponbtn)="step = 4" style="margin:15 5 5;"  color="#C45177"></ns-btn></StackLayout>
+                        </GridLayout>
+
+                </StackLayout> 
+
+                
+                <StackLayout *ngIf="step == 4">      
+                        <Label class="formText" text="Appliquer pour les prochains "></Label>
+                        
+                        <GridLayout columns="*,50,50,140,50,50,*" rows="auto,auto,auto,auto,auto" style="margin-top:40; width:100%;">
+                                <label col="1" text="&#xf100;" class="fa daysChangeBtn" (tap)="formData.noDays = formData.noDays-10" *ngIf="formData.noDays-10 > 0"></label>
+                                <label col="2" text="&#xf104;" class="fa daysChangeBtn" (tap)="formData.noDays = formData.noDays-1" *ngIf="formData.noDays-1 > 0"></label>
+                                <Label col="3" class="btnText active" text="{{formData.noDays}} jours"></Label>
+                                <label col="4" text="&#xf105;" class="fa daysChangeBtn" (tap)="formData.noDays = formData.noDays+1"></label>
+                                <label col="5" text="&#xf101;" class="fa daysChangeBtn" (tap)="formData.noDays = formData.noDays+10"></label>
+                        </GridLayout>
+        
+
+                        <GridLayout columns="20,*,*,20" style="margin-top:40;">
+                                <StackLayout col="1"><ns-btn text="Précédent" (taponbtn)="step = 3" style="margin:15 5 5;"  color="#C45177"></ns-btn></StackLayout>
+                                <StackLayout col="2"><ns-btn text="Confirmer" (taponbtn)="submit()" style="margin:15 5 5;"  color="#C45177"></ns-btn></StackLayout>
+                        </GridLayout>
+
+                </StackLayout> 
+
+            
+        </ScrollView>
+        
+</StackLayout>

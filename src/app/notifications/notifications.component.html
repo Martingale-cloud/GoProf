@@ -1,0 +1,50 @@
+<StackLayout class="mainContent">
+
+        <StackLayout class="header">
+                <Image src="~/images/logo.png" id="logo" ></Image>
+                
+        </StackLayout>
+        <StackLayout class="spikes">                
+        </StackLayout>
+        <StackLayout class="pageTitle">
+                <Label text="Mes Notifications"></Label>                
+        </StackLayout>
+
+
+        <GridLayout *ngIf="data.notificationsModel.loaded">
+            
+
+
+
+                <RadListView #myListView [items]="data.notificationsModel.notifications" selectionBehavior="None" (itemSwipeProgressEnded)="onSwipeCellFinished($event)"
+                (itemSwipeProgressStarted)="onSwipeCellStarted($event)" (itemSwipeProgressChanged)="onCellSwiping($event)" swipeActions="true">
+        
+                <ng-template tkListItemTemplate let-item="item">
+                    <StackLayout class="notif" orientation="vertical" (tap)="onNotifTap(item)">
+                        <Label class="notifTitle" [text]="item.title"></Label>
+                        <Label class="notifTexte" [text]="item.text"></Label>
+                        <Label class="notifDate" [text]="humanTime(item.eventDate)"></Label>
+                    </StackLayout>
+                </ng-template>
+                <!-- >> angular-listview-swipe-actions-multiple-template-html -->
+                <GridLayout *tkListItemSwipeTemplate columns="auto, *, auto">
+                    <GridLayout columns="*" col="0" id="left-stack">
+                        <GridLayout col="0" class="acceptGridLayout" (tap)="onLeftSwipeClick($event)" id="btnAccept">
+                            <Label text="Afficher" class="swipetemplateLabel" verticalAlignment="center" horizontalAlignment="center"></Label>
+                        </GridLayout>
+                    </GridLayout>
+                    <GridLayout columns="*" col="2" id="right-stack">
+                        <GridLayout col="0" class="rejectGridLayout" (tap)="onRightSwipeClick($event)" id="btnReject">
+                            <Label text="Supprimer" class="swipetemplateLabel" verticalAlignment="center" horizontalAlignment="center"></Label>
+                        </GridLayout>
+                    </GridLayout>
+                </GridLayout>
+                <!-- << angular-listview-swipe-actions-multiple-template-html -->
+            </RadListView>
+
+
+
+
+        </GridLayout> 
+        
+</StackLayout>

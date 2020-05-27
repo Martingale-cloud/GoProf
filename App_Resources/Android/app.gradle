@@ -1,0 +1,38 @@
+// Add your native dependencies here:
+
+// Uncomment to add recyclerview-v7 dependency
+//dependencies {
+//	implementation 'com.android.support:recyclerview-v7:+'
+//}
+
+// If you want to add something to be applied before applying plugins' include.gradle files
+// e.g. project.ext.googlePlayServicesVersion = "15.0.1"
+// create a file named before-plugins.gradle in the current directory and place it there
+
+android {
+  defaultConfig {
+    manifestPlaceholders = [onesignal_app_id: "3612cea5-dbb2-4869-95e5-3aacef3c9cea",
+                              // Project number pulled from dashboard, local value is ignored.
+                              onesignal_google_project_number: "REMOTE"]
+    minSdkVersion 24
+    generatedDensities = []
+  }
+  aaptOptions {
+    additionalParameters "--no-version-vectors"
+  }
+}
+
+def settingsGradlePath
+
+if(project.hasProperty("appResourcesPath")){
+    settingsGradlePath = "$project.appResourcesPath/Android/settings.gradle";
+} else {
+    settingsGradlePath = "$rootDir/../../app/App_Resources/Android/settings.gradle";
+}
+
+def settingsGradleFile = new File(settingsGradlePath);
+
+if(settingsGradleFile.exists())
+{
+    apply from: settingsGradleFile;
+}

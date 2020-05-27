@@ -1,0 +1,103 @@
+.mainContent {
+  background-size: 100% 100%;
+  background-image: ~/images/back.jpg;
+}
+
+.radlist {
+  background-color: transparent;
+}
+
+#logo {
+  width: 80;
+  horizontal-align: center;
+  margin-top: 25;
+  margin-bottom: 10;
+}
+
+.header {
+  background-color: #90c5a9;
+  height: 80;
+}
+
+.pageTitle {
+  background-color: #618673;
+}
+.pageTitle Label {
+  color: #ffffff;
+  font-size: 14;
+  margin: 0 0 5 20;
+  font-weight: bold;
+}
+
+.avatar {
+  width: 60;
+  height: 60;
+  border-radius: 30;
+  margin: 10;
+}
+
+.profBlock {
+  margin: 10 20 0 20;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 2;
+  border-left-width: 4;
+  border-color: #618673;
+}
+.profBlock.rouge {
+  border-color: #cc3014;
+  opacity: 0.5;
+}
+
+.profName {
+  color: #2c3a42;
+  font-size: 13;
+  margin-top: 10;
+}
+.profTarif {
+  color: rgba(44, 58, 66, 0.5);
+  font-size: 12;
+  margin-top: 5;
+}
+.profFooter {
+  color: rgba(44, 58, 66, 0.5);
+  font-size: 12;
+  margin-top: 5;
+  margin-bottom: 10;
+}
+.profDays {
+  color: rgba(44, 58, 66, 0.5);
+  margin-left: 15;
+  text-align: right;
+  margin-right: 10;
+  font-size: 10;
+}
+.profSubject {
+    color: rgba(44, 58, 66, 0.5);
+    font-size: 12;
+   vertical-align: middle; 
+}
+
+.verticalAlignLayout {
+    vertical-align: middle;
+}
+
+.newMessagesBullet {
+  background-color: #fff;
+  border-radius: 8;
+  color: rgba(162, 196, 213, 1);
+  font-weight: bold;
+  margin-left: 0;
+  width: 16;
+  height: 16;
+  horizontal-align: left;
+  vertical-align: top;
+  text-align: center;
+  margin: 2;
+  border-color: rgba(162, 196, 213, 0.8);
+  border-width: 1;
+}
+.loadingText {
+  text-align: center;
+  margin: 20;
+  color: #fff;
+}

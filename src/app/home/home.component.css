@@ -1,0 +1,54 @@
+/* module specific styles */
+
+/*
+.icon{
+    font-family: 'icomoon';
+    vertical-align: center;
+}
+
+.sheet {width:93; height:150; border-color:rgba(0,0,0,0.5); border-width:1; margin:10; border-radius:6; text-align:center; font-size:12; background-color:#fff; background-size:contain; opacity:1;}
+
+.link {margin-bottom: 30;}
+.infoText {color:#888; margin:20; text-align: center; }
+
+
+#gameTeaser {color:#fff; font-size: 16; text-align: center; font-weight: bold; background-color: rgba(0,0,0,.5); opacity:0; width: 320; height: 130; transform: translate(0,250);}
+
+
+.bigLinks {color: #000; font-size: 25; font-family: "Supersonic Rocketship"; text-align: center; padding:10 0; }
+
+#bulle_francais, #bulle_histoire, #bulle_francais2, #bulle_histoire2 {transform: translate(-360,0) rotate(-300deg); }
+#bulle_math, #bulle_anglais, #bulle_math2, #bulle_anglais2 {transform: translate(360,0) rotate(300deg); }
+*/
+
+
+.mainContent {background-size:100% 100%; background-image: ~/images/back.jpg; }
+
+
+#logo {width:80; horizontal-align:center; margin-top:25; margin-bottom:10;}
+
+.header {
+    background-color: #098d8b;
+    height:80;
+    background-image: ~/images/border.png;
+    background-repeat: repeat-x;
+    background-position: bottom;
+}
+
+
+
+.visibility{background-color: rgba(255,255,255,.3); margin-top:0; margin-bottom:10; margin-left:20; margin-right:20; border-radius:10;}
+.visibility .status { color:#098d8b; text-align: center; margin-top:10; }
+
+.homeb
+{
+    margin:0 20%;
+    width:55%;
+
+    horizontal-align:left; margin-right: 0; margin-left:30;
+}
+.homebtns{
+    horizontal-align:center;
+}
+
+.homeb.right {horizontal-align:right; margin-left: 0; margin-right:30;}

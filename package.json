@@ -1,0 +1,72 @@
+{
+  "nativescript": {
+    "id": "fr.goprof.app",
+    "tns-ios": {
+      "version": "6.0.1"
+    },
+    "tns-android": {
+      "version": "6.1.2"
+    }
+  },
+  "scripts": {
+    "uploadDevGoProf": "scp ./serverside/goprofServer.js root@51.83.47.129:/root/goprof/node/goprofServer.js",
+    "startServerDevGoProf": "ssh root@51.83.47.129 'cd goprof/node && pm2 start --node-args=\"--inspect=0.0.0.0:9994\" goprofServer.js' ",
+    "restartServerDevGoProf": "ssh root@51.83.47.129 'cd goprof/node && pm2 stop goprofServer && pm2 start --node-args=\"--inspect=0.0.0.0:9994\" goprofServer.js' ",
+    "upload": "scp -P 1030 ./serverside/goprofServer.js root@site47.fr:/home/goprof/node/goprofServer.js",
+    "uploadwebsite": "scp -rp -P 1030 ./website/* root@site47.fr:/home/goprof/public_html/ ",
+    "dev": "ssh -p 1030 root@site47.fr 'pm2 stop goprofServer && cd /home/goprof/node/ && nodemon --inspect goprofServer.js'",
+    "build": "tns prepare ios --release && read -p \"modify xcworkspace file and press enter to continue build\" && tns build ios --release --for-device --provision goprof0518",
+    "uploadserver": "scp -P 1030 ./serverside/goprofServer.js root@site47.fr:/home/goprof/node/goprofServer.js && ssh -p 1030 root@site47.fr 'pm2 restart \"GoProf Server\"' ",
+    "uploadserverDebug": "scp -P 1030 ./serverside/goprofServer.js root@site47.fr:/home/goprof/node/goprofServer.js && ssh -p 1030 root@site47.fr 'pm2 restart  --node-args=\"--inspect=0.0.0.0:9994\" goprofServer' ",
+    "startServerDebug": "  ssh -p 1030 root@site47.fr 'pm2 stop goprofServer && pm2 start --node-args=\"--inspect=0.0.0.0:9994\" goprofServer' ",
+    "stopServerDebug": "  ssh -p 1030 root@site47.fr 'pm2 restart --node-args=\"\" goprofServer' ",
+    "debug": "tns debug ios --inspector",
+    "inspect": "tns debug ios --inspector --start"
+  },
+  "description": "NativeScript Application",
+  "license": "SEE LICENSE IN <your-license-filename>",
+  "repository": "<fill-your-repository-here>",
+  "dependencies": {
+    "@angular/animations": "~8.2.0",
+    "@angular/common": "~8.2.0",
+    "@angular/compiler": "~8.2.0",
+    "@angular/core": "~8.2.0",
+    "@angular/forms": "~8.2.0",
+    "@angular/http": "~7.1.0",
+    "@angular/platform-browser": "~8.2.0",
+    "@angular/platform-browser-dynamic": "~8.2.0",
+    "@angular/router": "~8.2.0",
+    "moment": "2.18.1",
+    "nativescript-angular": "~8.2.0",
+    "nativescript-camera": "4.5.0",
+    "nativescript-datetimepicker": "^1.2.2",
+    "nativescript-drop-down": "^5.0.4",
+    "nativescript-email": "^1.5.5",
+    "nativescript-iqkeyboardmanager": "1.5.1",
+    "nativescript-loading-indicator": "2.5.2",
+    "nativescript-ng-shadow": "^2.1.0",
+    "nativescript-onesignal": "1.0.8",
+    "nativescript-permissions": "^1.3.8",
+    "nativescript-socket.io": "0.11.1",
+    "nativescript-stripe": "6.6.0",
+    "nativescript-theme-core": "~1.0.6",
+    "nativescript-timedatepicker": "^1.2.1",
+    "nativescript-twilio-video": "^1.1.6",
+    "nativescript-ui-listview": "^8.0.1",
+    "nativescript-videoplayer": "^4.2.1",
+    "nativescript-webview-interface": "1.4.2",
+    "reflect-metadata": "~0.1.12",
+    "rxjs": "^6.4.0",
+    "socket.io-client": "^2.3.0",
+    "tns-core-modules": "~6.5.0",
+    "zone.js": "~0.9.1"
+  },
+  "devDependencies": {
+    "@angular/compiler-cli": "~8.2.0",
+    "@ngtools/webpack": "8.2.0",
+    "nativescript-dev-webpack": "^1.5.1",
+    "typescript": "~3.5.3"
+  },
+  "gitHead": "1964ea9e8ca1a0518e0d6370781eedcf6c23db42",
+  "readme": "NativeScript Application"
+}

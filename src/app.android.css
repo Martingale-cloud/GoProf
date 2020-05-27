@@ -1,0 +1,60 @@
+/*
+In NativeScript, the app.css file is where you place CSS rules that
+you would like to apply to your entire application. Check out
+http://docs.nativescript.org/ui/styling for a full list of the CSS
+selectors and properties you can use to style UI components.
+
+/*
+In many cases you may want to use the NativeScript core theme instead
+of writing your own CSS rules. For a full list of class names in the theme
+refer to http://docs.nativescript.org/ui/theme.
+*/
+@import '~nativescript-theme-core/css/core.light.css';
+
+
+.fa {
+    font-family: 'FontAwesome', fontawesome-webfont;
+}
+
+.supersonic {
+    font-family: "Supersonic Rocketship";
+}
+
+Page {
+}
+
+.topMargin {margin-top:20;}
+
+
+.spikes2 {
+    height:15;
+    background-size: 100%;
+    background-repeat: repeat-x;
+    background-image: ~/images/border.png;
+}
+
+.spikes {
+    height:15;
+    background-size: 100%;
+    background-repeat: repeat-x;
+    background-color: #618673;
+    background-image: ~/images/border2.png;
+}
+.spikes3 {
+    height:15;
+    background-size: 100%;
+    background-repeat: repeat-x;
+    background-position: bottom;
+    background-image: ~/images/border2rev.png;
+}
+
+
+
+/* android fixes */
+button {background-color: rgba(255, 0, 0, 0.0);
+    border-color:rgba(255, 0, 0, 0.0);
+    border-width:1;
+    z-index:0
+    }
+label {border-color: transparent;}
+TextField{border-color: transparent;}

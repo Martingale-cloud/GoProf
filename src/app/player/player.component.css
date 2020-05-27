@@ -1,0 +1,16 @@
+
+.mainContent {background-size:100% 100%; background-image: ~/images/back.jpg; }
+
+#logo {width:80; horizontal-align:center; margin-top:25; margin-bottom:10;}
+
+.header {
+    background-color: #90c5a9;
+    height:80;
+}
+
+
+.pageTitle {background-color: #618673;}
+.pageTitle Label {color: #ffffff; font-size:14; margin: 0 0 5 20; font-weight: bold;}
+
+.descriptionContainer {height:200; background-color: #618673;}
+.description {font-size: 12; color:#fff; text-align: left; margin:20;}

@@ -1,0 +1,41 @@
+<StackLayout class="mainContent">
+
+        <StackLayout class="header">
+                <Image src="~/images/logo.png" id="logo" ></Image>
+                
+        </StackLayout>
+        <StackLayout class="spikes">                
+        </StackLayout>
+        <StackLayout class="pageTitle">
+                <Label text="Mes demandes de cours"></Label>                
+        </StackLayout>
+
+
+        <GridLayout *ngIf="data.demandesModel.loaded">
+
+                <ScrollView>
+                    <StackLayout>
+                            <StackLayout class="notif" orientation="vertical" *ngFor="let item of data.demandesModel.demandes" shadow="8">
+                                    <Label class="notifTitle" text="Cours avec {{item.fname}} {{item.lname}}"></Label>
+                                    <Label class="notifDate" text="le {{humanDateFromUnix(item.start_uts)}}"></Label>
+                                    <Label class="notifDate" text="de {{humanTimeFromUnix(item.start_uts)}} à {{humanTimeFromUnix(item.end_uts)}}"></Label>
+                                    <GridLayout columns="*,auto,auto,*" rows="auto" style="margin-top:10; margin-bottom:10;">
+                                            <StackLayout col="1" row="0"><ns-btn text="Accepter" (taponbtn)="accepter(item)" color="#088e04" style="margin:0;"></ns-btn></StackLayout>
+                                            <StackLayout col="2" row="0"><ns-btn text="Refuser" (taponbtn)="refuser(item)" color="#a41608" style="margin:0;"></ns-btn></StackLayout>
+                                    </GridLayout>
+                                    
+                            </StackLayout>
+                    </StackLayout>
+                </ScrollView>
+
+                
+
+
+
+
+
+
+
+        </GridLayout> 
+        
+</StackLayout>

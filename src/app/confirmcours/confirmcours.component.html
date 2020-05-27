@@ -1,0 +1,59 @@
+<StackLayout class="mainContent">
+
+        <StackLayout class="header">
+                <Image src="~/images/logo.png" id="logo" ></Image>
+                
+        </StackLayout>
+        <StackLayout class="spikes">                
+        </StackLayout>
+
+        <ScrollView>
+                <StackLayout *ngIf="data.openProf">      
+                               
+                                                
+                                <Label class="profName" text="{{data.order.prof.fname}} {{data.order.prof.lname}} "></Label>
+
+
+                                <StackLayout *ngIf="data.stripeModel.loaded">
+                                        <Label class="boldtext" text="Heure de début du cours"></Label>
+                                        <Label class="text" textwrap="true" text="{{humanTime(data.order.hour.start)}}"></Label>
+                                        <Label class="boldtext" text="Heure de fin du cours"></Label>
+                                        <Label class="text" textwrap="true" text="{{humanTime(data.order.hour.end)}}"></Label>
+                                        <Label class="boldtext" text="Prix du cours"></Label>
+                                        <Label class="text" textwrap="true" text="{{data.order.hour.fixed_price}} € TTC"></Label>
+                                        <Label class="boldtext" text="Ce que vous allez payer"></Label>
+                                        <Label class="text" textwrap="true" text="{{calcRealCost()}} €"></Label>
+                                </StackLayout>
+
+                                <StackLayout *ngIf="!data.stripeModel.loaded">
+                                        <Label class="boldtext" text="Chargement de vos données comptables..."></Label>
+                                </StackLayout>
+                                
+                                <label class="disclaimer" textwrap="true" text="En validant, vous acceptez le paiement de ce cours lors de la validation du professeur"></label>
+                                <label class="disclaimer" textwrap="true" text="Veuillez selectionner la carte de paiement a utiliser pour ce cours"></label>
+                                
+                                <StackLayout *ngIf="data.creditCardsModel.loaded">
+                                        <label class="nocards" textwrap="true"  *ngIf="data.creditCardsModel.cards.length == 0" text="Vous n'avez aucune carte de paiement."></label>
+                                </StackLayout>
+                                <label class="nocards" textwrap="true"  *ngIf="!data.creditCardsModel.loaded" text="Chargement de vos cartes..."></label>
+                                <!-- btn cartes -->
+                                <StackLayout *ngIf="data.creditCardsModel.loaded">
+                                        <StackLayout class="card" *ngFor="let card of data.creditCardsModel.cards.data">
+                                                        <label text="{{displayCCIcon(card.brand)}}" class="fa" style="font-size:35; margin:15; horizontal-align:center;"></label>
+                                                        <Label style="text-align:center; font-size:16; margin-bottom:5;" text="{{card.name}}"></Label>
+                                                        <Label style="text-align:center; font-size:12; margin-bottom:15;" text="{{card.brand}} terminant par {{card.last4}}"></Label>
+                                                        <StackLayout (tap)="confirm(card)"><ns-btn text="utiliser cette carte"></ns-btn> </StackLayout>
+                                        </StackLayout>
+                                </StackLayout>
+
+
+                                <StackLayout><ns-btn (taponbtn)="gotocc()"  text="gérer mes cartes"></ns-btn></StackLayout>
+
+
+                </StackLayout> 
+
+        
+            
+        </ScrollView>
+        
+</StackLayout>

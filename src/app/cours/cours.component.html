@@ -1,0 +1,76 @@
+<GridLayout rows="auto,*,0"  class="mainContent" id>
+        
+                   
+                <ScrollView *ngIf="data.videosModel.loaded" row="1" #scrollview id="scrollview" >
+                                
+                        <StackLayout>
+
+                                        <GridLayout columns="*,auto,auto,*" rows="auto" style="margin-top:30;">
+                                                <StackLayout col="1" row="0"><ns-btn text="Maths" [highlight]="matiere == 'Maths'" (taponbtn)="matiere = 'Maths'" style="margin:5;" color="#90A1E9"></ns-btn></StackLayout>
+                                                <StackLayout col="2" row="0"><ns-btn text="Français" [highlight]="matiere == 'Français'" (taponbtn)="matiere = 'Français'" color="#9BDCB2" style="margin:5;"></ns-btn></StackLayout>
+                                        </GridLayout>
+
+                                <StackLayout *ngFor="let video of data.videosModel.videos | filter : 'matiere' : matiere"  >
+                                        <StackLayout shadow="8">
+                                                        <StackLayout class="videoContainer"  >
+                                                                        <StackLayout id="videostack{{video.id}}" [ngClass]="{'hiddenVideoStack' : videoData.id != video.id}"></StackLayout>
+                                                                        <Image src="https://www.videos.goprof.fr/720/{{video.id}}.jpg?" class="videoThumb" *ngIf="videoData.id != video.id" (tap)="openPlayer(video)"></Image>
+                                                                        <!-- <VideoPlayer id="nativeVideoPlayer" src="{{video.videoURL}}" autoplay="false" height="200" width="100%" controls="true" (tap)="fullscreen()" (finished)="videoFinished" *ngIf="videoData.id == video.id" observeCurrentTime="true"></VideoPlayer>-->
+                                                                        <Image src="~/images/videobottom.png" class="videoBottom" ></Image>
+                                                                        <StackLayout class="videoBadgeContainer"><Label  class="videoBadge" [ngClass]="{'badgeMath' : video.matiere == 'Maths' ,'badgeFrancais' : video.matiere == 'Français' }" textWrap="false" text="1"></Label></StackLayout>
+                                                                        <Label  class="videoTitle" textWrap="false" text="{{video.titre}}"></Label>
+                                                                        <gridlayout rows="50,*" *ngIf="videoData.id == video.id">
+                                                                                        
+
+                                                                                        <StackLayout class="timeLine"></StackLayout>
+                                                                                        <StackLayout class="timeBulletContainer">
+                                                                                                <StackLayout class="timeBullet" [ngClass]="{'badgeMath' : video.matiere == 'Maths' ,'badgeFrancais' : video.matiere == 'Français' }" [ngStyle]="{'margin-left': videoData.pct+'%' }"></StackLayout>
+                                                                                        </StackLayout>
+                                                                        
+                                                                                <stackLayout orientation="horizontal" style="horizontal-align:center;" row="1">
+
+                                                                                        <Button text="&#xf04a;" class="fa playerIcons" (tap)="seek(-10)" ></Button>
+                                                                                        <Button text="&#xf04b;" class="fa playerIcons" (tap)="play(true)" *ngIf="!videoData.playing"></Button>
+                                                                                        <Button text="&#xf04c;" class="fa playerIcons" (tap)="play(false)" *ngIf="videoData.playing"></Button>
+                                                                                        <Button text="&#xf04e;" class="fa playerIcons" (tap)="seek(10)" ></Button>
+                                                                                        <Button text="&#xf065;" class="fa playerIcons" style="margin-left:10;" (tap)="fs(true)" ></Button>
+                                                                                        
+                                                                                </stackLayout>
+                                                                        
+                                                                        </gridlayout>
+                                                                        <Label  class="videoTimer" textWrap="true" text="{{human(videoData.time)}} / {{human(videoData.total)}}" *ngIf="videoData.id == video.id"></Label>
+                                                                        <Label  class="videoDescription" textWrap="true" text="{{video.description}}"></Label>
+                                                                        <Label  class="videoAuthor" textWrap="true" text="{{video.nom}}"></Label>
+                                                        </StackLayout>
+                                        </StackLayout>
+                                        
+                                </StackLayout>
+
+
+
+                            
+                        </StackLayout>
+                
+                </ScrollView>
+
+
+                
+                <AbsoluteLayout id="fsPlayerStack" row="2" rowspan="1" >
+                             
+                        
+                </AbsoluteLayout>
+
+                <StackLayout row="0" style="margin-bottom:-15;" id="header">
+                                <StackLayout class="header">
+                                        <GridLayout>
+                                                <Image src="~/images/logo.png" id="logo" ></Image>
+                                                <Button text="&#xf066;" class="fa playerIcons" style="margin-left:10; horizontal-align:right;" (tap)="fs(false)" *ngIf="this.isFS" ></Button>
+
+                                        </GridLayout>
+                                        
+                                </StackLayout>
+                                <StackLayout class="spikes2">                
+                                </StackLayout>
+                </StackLayout> 
+
+</GridLayout>

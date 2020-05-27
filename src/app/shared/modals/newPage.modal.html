@@ -1,0 +1,67 @@
+
+<StackLayout>
+
+    <GridLayout class="header">
+        <Image src="~/images/logo.png" id="logo" ></Image>
+        <Button text="&#xf190;" class="fa backIcon" (tap)="close('none')"></Button>
+    </GridLayout>
+<StackLayout class="spikes">                
+</StackLayout>
+<StackLayout class="pageTitle">
+        <Label text="Ajouter"></Label>                
+</StackLayout>
+
+<GridLayout backgroundColor="white">
+    
+
+
+    
+    <ListView [items]="sources" class="list-group" *ngIf="page == 'choice'">
+        <ng-template let-source="item">
+            <StackLayout class="list-group-item" (tap)="close(source.value)">
+                <Label text="{{ source.label }}" class="label"></Label>
+            </StackLayout>
+        </ng-template>
+    </ListView>
+
+
+
+
+  <GridLayout rows="*,105" *ngIf="page == 'camera' && device == 'ios'" style="background-color:rgba(0,0,0,1);">
+        <Placeholder rowspan="2" class="live" *ngIf="page == 'camera'" (creatingView)="creatingView($event)" ></Placeholder>
+	    <StackLayout row="1" orientation="horizontal" horizontalAlignment="center">
+            <label text="&#xf030;" class="fa picture_take" (tap)="takePicture()"></label>
+            <label text="&#xf00d;" class="fa picture_cancel" (tap)="cancelTakePicture()"></label>
+        </StackLayout>
+    </GridLayout> 
+    
+
+    <label *ngIf="page == 'files' && !this.data.pagesModel.loaded" text="Chargement de vos fichiers ..."></label>
+    <ScrollView *ngIf="page == 'files' && this.data.pagesModel.loaded">
+        <StackLayout>
+                <GridLayout columns="*,auto,auto,*" rows="auto" style="margin-top:30;">
+                        <StackLayout col="1" row="0"><ns-btn text="Fiches GoProf" [highlight]="fiches_user_id == 0" (taponbtn)="fiches_user_id = 0" style="margin:5;" color="#90A1E9"></ns-btn></StackLayout>
+                        <StackLayout col="2" row="0"><ns-btn text="Mes fiches" [highlight]="fiches_user_id == this.data.user.id" (taponbtn)="fiches_user_id = this.data.user.id" color="#9BDCB2" style="margin:5;"></ns-btn></StackLayout>
+                </GridLayout>
+
+
+                <StackLayout *ngFor="let file of data.pagesModel.pages | filter : 'user_id' : fiches_user_id"  >
+                        <StackLayout shadow="8">
+                                    <StackLayout class="ficheContainer" (tap)="useFile(file)" orientation="horizontal"> 
+                                        <Image src="{{file.thumbnail}}" style="width:80; margin-right:20;"></Image>  
+                                        <Label text="{{ file.title }}" class="label"></Label>
+                                    </StackLayout>
+                        </StackLayout>
+                        
+                </StackLayout>
+
+
+        </StackLayout>
+    </ScrollView>  
+
+
+
+</GridLayout>
+</StackLayout>
+
+ 

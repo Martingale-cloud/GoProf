@@ -1,0 +1,29 @@
+
+
+  <GridLayout rows="auto,*,auto,auto" class="mainContent">
+      
+             <StackLayout row="0">
+                      <StackLayout class="header">
+                              <Image src="~/images/logo.png" id="logo" ></Image>
+                              
+                      </StackLayout>
+                      <StackLayout class="spikes">                
+                      </StackLayout>
+                      <StackLayout class="pageTitle" orientation="horizontal">
+                              <Label text="{{data.openVideo.titre}}"></Label>                
+                      </StackLayout>
+              </StackLayout>  
+              <StackLayout row="1" >
+                  <VideoPlayer id="nativeVideoPlayer" src="{{data.openVideo.videoURL}}" autoplay="true" height="100%" width="100%" controls="true" (finished)="videoFinished"></VideoPlayer>
+              </StackLayout>  
+              <StackLayout  row="2"  class="spikes" (tap)="showInfo = !showInfo">                
+              </StackLayout>  
+              <StackLayout class="descriptionContainer"  row="3" (tap) ="showInfo = false;" *ngIf="showInfo">  
+                <label class="description" textwrap="true" text="{{data.openVideo.description}}"></label>
+                <label class="description" textwrap="true" text="Video par {{data.openVideo.nom}}"></label>              
+              </StackLayout>  
+</GridLayout>
+
+
+                
+

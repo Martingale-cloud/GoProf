@@ -1,0 +1,44 @@
+<StackLayout class="mainContent">
+
+        <StackLayout class="header">
+                <Image src="~/images/logo.png" id="logo" ></Image>
+                
+        </StackLayout>
+        <StackLayout class="spikes">                
+        </StackLayout>
+        <StackLayout class="pageTitle">
+                <Label text="Mes Conversations"></Label>                
+        </StackLayout>
+
+        <ScrollView>
+                <StackLayout id="conversationStack" *ngIf="data.conversationsModel.loaded">      
+         
+                        <StackLayout *ngFor="let conversation of conversations();" shadow="8" class="messageBlock" [ngClass]="{'messageBlocknew' :  hasNewMessages(conversation)}" (tap)="openConversation(conversation,$event)" id="messagesContainer{{conversation.remoteID}}">
+                            <GridLayout rows="auto" columns="80,*,auto"  >
+
+                                <Image class="avatar" stretch="aspectFill" *ngFor="let member of notMeArray(conversation.members); let i = index" src="https://goprof.fr/profilepics/{{member.id}}.jpg" col="0" row="0" [style.marginLeft.%]="i*8" ></Image>
+                                <StackLayout col="1" row="0">
+                                        <StackLayout orientation="horizontal">
+                                                <Label class="messageName" *ngFor="let member of notMeArray(conversation.members)" text="{{member.fname}} ({{conversation.members[0].classe}}) "></Label>
+                                        </StackLayout>
+                                        <Label textWrap="true" class="messageExcerp" text="{{conversation.text}}"></Label>
+                                        <Label class="messageTime" text="{{humanTimeFromUts(conversation.last_message_time_uts)}}"></Label>
+                                </StackLayout>
+                                <Label class="fa messageArrow" text="&#xf105;" col="2" row="0" rowspan="2"></Label>
+                                
+                                <Label class="newMessagesBullet" text="{{conversation.newMessages}}" col="0" row="0" *ngIf="hasNewMessages(conversation)" rowspan="2"></Label>
+                            </GridLayout>
+                        </StackLayout>
+        
+                    </StackLayout> 
+
+
+                    <Label *ngIf="!data.conversationsModel.loaded" textwrap="true" text="Chargement de tes conversations en cours..." class="loadingText"></Label>
+                    <Label *ngIf="data.conversationsModel.loaded && this.data.conversationsModel.conversations.length == 0" textwrap="true" text="Aucune conversation." class="loadingText"></Label>
+        
+
+                    
+            
+        </ScrollView>
+        
+</StackLayout>

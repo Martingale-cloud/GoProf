@@ -1,0 +1,114 @@
+<StackLayout class="mainContent">
+  <StackLayout class="header">
+    <Image src="~/images/logo.png" id="logo"></Image>
+  </StackLayout>
+  <StackLayout class="spikes"> </StackLayout>
+  <StackLayout class="pageTitle">
+    <Label text="Les Profs"></Label>
+  </StackLayout>
+
+  <ScrollView>
+    <StackLayout *ngIf="data.profsModel.loaded">
+      <GridLayout
+        rows="auto"
+        columns="80,*,80"
+        *ngFor="let prof of data.profsModel.profs"
+        class="profBlock"
+        [ngClass]="{ rouge: prof.available == 1 }"
+        (tap)="openProf(prof, $event)"
+      >
+        <Image
+          class="avatar"
+          src="https://goprof.fr/profilepics/{{ prof.id }}.jpg?"
+          col="0"
+          row="0"
+        ></Image>
+        <StackLayout col="1" row="0">
+          <Label
+            class="profName"
+            text="{{ prof.fname }} {{ prof.lname }} "
+          ></Label>
+          <Label
+            class="profTarif"
+            textWrap="true"
+            text="Tarif habituel: {{ prof.hour_rate }},-€/h"
+          ></Label>
+          <!-- <Label class="profFooter" text="Note: - /5 "></Label> -->
+        </StackLayout>
+        <StackLayout class="verticalAlignLayout" col="2" row="0">
+          <Label
+          class="profSubject"
+            *ngIf="prof.need_math && lessThanFourSubjects(prof)"
+            text="Maths"
+          ></Label>
+          <Label
+          class="profSubject"
+            *ngIf="prof.need_histoire && lessThanFourSubjects(prof)"
+            text="Histoire"
+          ></Label>
+          <Label
+          class="profSubject"
+            *ngIf="prof.need_geographie && lessThanFourSubjects(prof)"
+            text="Géographie"
+          ></Label>
+          <Label
+          class="profSubject"
+            *ngIf="prof.need_francais && lessThanFourSubjects(prof)"
+            text="Français"
+          ></Label>
+          <Label
+          class="profSubject"
+            *ngIf="prof.need_espagnol && lessThanFourSubjects(prof)"
+            text="Espagnol"
+          ></Label>
+          <Label
+          class="profSubject"
+            *ngIf="prof.need_allemand && lessThanFourSubjects(prof)"
+            text="Allemand"
+          ></Label>
+          <Label
+          class="profSubject"
+            *ngIf="prof.need_physique && lessThanFourSubjects(prof)"
+            text="Physique"
+          ></Label>
+          <Label
+          class="profSubject"
+            *ngIf="prof.need_svt && lessThanFourSubjects(prof)"
+            text="SVT"
+          ></Label>
+          <Label
+          class="profSubject"
+            *ngIf="prof.need_anglais && lessThanFourSubjects(prof)"
+            text="Anglais"
+          ></Label>
+          <Label
+          class="profSubject"
+            *ngIf="prof.need_anglais && moreThanThreeSubjects()"
+            text="..."
+          ></Label>
+          {{ setSubjectCount(0) }}
+        </StackLayout>
+        <!-- <StackLayout col="1" row="0">
+          <Label
+            class="profName"
+            text="{{ prof.fname }} {{ prof.lname }} "
+          ></Label>
+          <Label
+            class="profTarif"
+            textWrap="true"
+            text="Tarif habituel: {{ prof.hour_rate }},-€/h"
+          ></Label>
+          <Label class="profFooter" text="Note: - /5 "></Label>
+        </StackLayout> -->
+
+        <!--<Label class="profDays" textWrap="true" text="lun mar mer" col="2" row="0" rowspan="2"></Label>-->
+      </GridLayout>
+    </StackLayout>
+
+    <Label
+      *ngIf="!data.profsModel.loaded"
+      text="Chargement des profs en cours..."
+      class="loadingText"
+    ></Label>
+  </ScrollView>
+</StackLayout>

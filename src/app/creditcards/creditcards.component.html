@@ -1,0 +1,56 @@
+<StackLayout class="mainContent">
+
+        <StackLayout class="header">
+                <Image src="~/images/logo.png" id="logo" ></Image>
+                
+        </StackLayout>
+        <StackLayout class="spikes">                
+        </StackLayout>
+        <StackLayout class="pageTitle">
+                <Label text="Mes cartes de paiements"></Label>                
+        </StackLayout>
+
+
+
+        <ScrollView >
+                        <StackLayout *ngIf="!data.creditCardsModel.loaded">
+                                <Label style="margin:20; color:#fff; "textwrap="true" text="Chargement de vos cartes en cours, veuillez patienter..."></Label>
+                        </StackLayout>
+                <StackLayout *ngIf="data.creditCardsModel.loaded">
+
+                        <StackLayout class="card" *ngFor="let card of data.creditCardsModel.cards.data">
+                                <label text="{{displayCCIcon(card.brand)}}" class="fa" style="font-size:35; margin:15; horizontal-align:center;"></label>
+                                <Label style="text-align:center; font-size:16; margin-bottom:5;" text="{{card.name}}"></Label>
+                                <Label style="text-align:center; font-size:12; margin-bottom:15;" text="{{card.brand}} terminant par {{card.last4}}"></Label>
+                                <StackLayout *ngIf="paymode"><ns-btn text="utiliser cette carte"></ns-btn> </StackLayout>
+                                <StackLayout *ngIf="!paymode" (tap)="deleteCard(card)"><ns-btn color="#ff2222" text="Supprimer cette carte"></ns-btn> </StackLayout>
+                        </StackLayout>
+
+                        <StackLayout class="card">
+                                <label text="Ajouter une carte"></label>
+                                <GridLayout columns="120,*,*" rows="auto,auto,auto,auto" style="margin-top:40; margin-bottom:20;">
+                                                <label col="0" row="0" text="Nom de la carte" class="formlabel"></label>
+                                                <TextField col="1" colspan="2" row="0" hint="Nom de la carte"  autocorrect="false" autocapitalizationType="none" [(ngModel)]="newcard.name"></TextField>
+                                    
+                                                <label col="0" row="1" text="Nr Carte" class="formlabel"></label>
+                                                <TextField col="1" colspan="2" row="1" hint="Numéro de carte visa"  keyboardType="number" autocorrect="false" autocapitalizationType="none" [(ngModel)]="newcard.number"></TextField>
+                                    
+                                                <label col="0" row="2" text="Expiration" class="formlabel"></label>
+                                                <TextField col="1" row="2" keyboardType="number" hint="mois" [(ngModel)]="newcard.month"></TextField>
+                                                <TextField col="2" row="2" keyboardType="number" hint="année" [(ngModel)]="newcard.year"></TextField>
+
+                                                <label col="0" row="3" text="Code CVC" class="formlabel"></label>
+                                                <TextField col="1"  colspan="2" row="3" hint="cryptogramme visuel" keyboardType="number" [(ngModel)]="newcard.cvc"></TextField>
+                                </GridLayout>
+                                <ns-btn (taponbtn)="addCard()"  text="Ajouter carte"></ns-btn> 
+                        </StackLayout>
+
+
+                        
+                    
+                </StackLayout>
+            </ScrollView>
+            
+    
+        
+</StackLayout>

@@ -1,0 +1,60 @@
+<StackLayout class="mainContent">
+
+        <StackLayout class="header">
+                <Image src="~/images/logo.png" id="logo" ></Image>
+                
+        </StackLayout>
+        <StackLayout class="spikes">                
+        </StackLayout>
+        <StackLayout class="pageTitle">
+                <Label text="Résumé du cours #{{data.openHour.id}}"></Label>                
+        </StackLayout>
+
+        <ScrollView>
+                <StackLayout>      
+         
+                        
+                               
+                                                
+                                      
+
+
+                                        <StackLayout>
+                                                <Label class="boldtext" text="Heure de début du cours"></Label>
+                                                <Label class="text" textwrap="true" text="{{humanTime(data.openHour.start)}}"></Label>
+                                                <Label class="boldtext" text="Heure de fin du cours"></Label>
+                                                <Label class="text" textwrap="true" text="{{humanTime(data.openHour.end)}}"></Label>
+                                                <Label class="boldtext" text="statut"></Label>
+                                                <Label class="text" *ngIf="data.openHour.confirmed == 1" textwrap="true" text="Confirmé"></Label>
+                                                <Label class="text" *ngIf="data.openHour.confirmed == 0" textwrap="true" text="En attente du prof"></Label>
+                                        </StackLayout>
+
+                                        <StackLayout style="margin-top:5">
+                                                <Label class="boldtext" text="Professeur"></Label>
+                                                <GridLayout columns="100,*" (tap)="openProfID(data.openHour.prof_id,$event)">
+                                                        <Image col="0" row="0" stretch="aspectFill" class="avatar" src="https://goprof.fr/profilepics/{{data.openHour.prof_id}}.jpg?"  ></Image>
+                                                        <Label col="1" row="0" class="text" textwrap="true" text="{{data.openHour.prof_fname}} {{data.openHour.prof_lname}}"></Label>
+                                                </GridLayout>
+
+                                                <Label class="boldtext" text="Elève"></Label>
+                                                <GridLayout columns="100,*">
+                                                        <Image col="0" row="0" stretch="aspectFill" class="avatar" src="https://goprof.fr/profilepics/{{data.openHour.user_id}}.jpg?"  ></Image>
+                                                        <Label col="1" row="0" class="text" textwrap="true" text="{{data.openHour.user_fname}} {{data.openHour.user_lname}}"></Label>
+                                                </GridLayout>
+                                        </StackLayout>
+
+
+                                        <gridLayout columns="*,auto,auto,*" rows="auto">
+                                                <StackLayout col="1"><ns-btn text="Fiche prof" (taponbtn)="openProfID(data.openHour.prof_id)" style="margin:5;"  color="#C45177"></ns-btn></StackLayout>
+                                                <StackLayout col="2"><ns-btn text="Conversation" (taponbtn)="openConversation()" color="#2E6465" style="margin:5;" ></ns-btn></StackLayout>    
+                                        </gridLayout>
+
+
+
+                    </StackLayout> 
+
+        
+            
+        </ScrollView>
+        
+</StackLayout>

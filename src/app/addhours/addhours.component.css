@@ -1,0 +1,21 @@
+
+
+.mainContent {background-size:100% 100%; background-image: ~/images/back.jpg; }
+
+.radlist {background-color: transparent;}
+
+#logo {width:80; horizontal-align:center; margin-top:25; margin-bottom:10;}
+
+.header {
+    background-color: #90c5a9;
+    height:80;
+}
+
+
+.pageTitle {background-color: #618673;}
+.pageTitle Label {color: #ffffff; font-size:14; margin: 0 0 5 20; font-weight: bold;}
+
+.formText {font-size: 14; color: #000; margin: 20; text-align: center;}
+.btnText { font-size: 18; color: rgba(0,0,0,.2); margin:10; text-align: center; transition: all 0.2s ease; }
+.active {color: #C45177; font-weight: bold; font-size: 20; }
+.daysChangeBtn { font-size: 18; color: #C45177; margin:10; font-weight: bold; text-align: center; }

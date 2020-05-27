@@ -1,0 +1,125 @@
+<GridLayout rows="auto,*,auto" class="mainContent" iosOverflowSafeAreaEnabled="false">
+
+
+
+       <StackLayout row="0">
+                <StackLayout class="header">
+                        <Image src="~/images/logo.png" id="logo" ></Image>
+                </StackLayout>
+
+                <StackLayout class="spikes">                
+                </StackLayout>
+                <StackLayout class="pageTitle" orientation="horizontal" *ngIf="data.openConversation.loaded">
+                        <Label text="messages avec"></Label>                
+                        <Label *ngFor="let member of notMeArray(data.openConversation.members)" (tap)="openMember(member,$event)" text=" {{member.fname}}"></Label>                
+                </StackLayout>
+        </StackLayout>      
+        <ScrollView *ngIf="data.openConversation.loaded" row="1" #scrollview id="scrollview" >
+                        
+                <GridLayout rows="*" style="padding-top:45;">
+                <StackLayout row="0">
+
+                        <GridLayout rows="auto,auto" *ngFor="let message of data.openConversation.messages;">
+                                <Label row="0" class="time" [ngClass]="{'ownMessage': message.user_id == data.user.id}" *ngIf="!message.local"  text="{{humanTime(message.time)}}"></Label>
+                                <Label row="0" class="time" [ngClass]="{'ownMessage': message.user_id == data.user.id}" *ngIf="message.local"  text="envoi..."></Label>
+                                <StackLayout *ngIf="message.type == 'text'" class="message" row="1" [ngClass]="{'ownMessage': message.user_id == data.user.id, 'local': message.local}">
+                                        <Label textWrap="true" text="{{id2name(message.user_id)}} a écrit :" class="author" *ngIf="message.user_id != data.user.id"></Label>
+                                        <Label textWrap="true" text="{{message.content}}" class="text"></Label>
+                                </StackLayout>
+                                <StackLayout *ngIf="message.type == 'quote'" class="quote" row="1" [ngClass]="{'ownMessage': message.user_id == data.user.id, 'local': message.local}">
+                                        <Label textWrap="true" text="&#xf274;" class="fa quoteIcon" (tap)="openQuote(message.content)"></Label>
+                                </StackLayout>
+                                {{scrollDown(message.id)}}
+                        </GridLayout>
+                </StackLayout>  
+                </GridLayout>
+        </ScrollView>
+        <Label row="1" *ngIf="!data.openConversation.loaded"  textwrap="true" text="Chargement de tes messages en cours..." class="loadingText"></Label>
+
+        <GridLayout columns = "*,auto" class="newMessageContainer" row="2">
+                <TextField height="40" autocorrect="true" autocapitalizationType="none" [(ngModel)]="newMessage" col="0" id="newMessageContent"></TextField>
+                <Label class="fa sendMessageBtn" text="&#xf1d8;" (tap)="sendMessage()" col="1"></Label>
+        </GridLayout>
+
+<!-- menu -->
+        <StackLayout orientation="horizontal" row="0" style="horizontal-align:right;">
+                <Button text="&#xf271;" class="fa newquoteIcon" (tap)="openNewQuote()" *ngIf="data.user.prof == 1"></Button>
+                <Button text="&#xf098;" class="fa callIcon" (tap)="openLive()"></Button>
+        </StackLayout>
+
+
+
+
+<!-- newquote -->
+        <StackLayout row=1 id="newQuote" rowspan="2" *ngIf="newQuoteVisible">
+                <label class="popupTitle" text="Nouvelle offre"></label>
+                <!-- start -->
+                <label class="label" text="Cours commence à"></label>
+                <Label style="color:#24D1E7; horizontal-align:center; font-size:16;  padding:10;" [text]="readableTime(newQuote.startMoment)" (tap)="setTime('start')"></Label>
+                <!-- end -->
+                <label class="label" text="Cours se termine à"></label>
+                <Label style="color:#04ccf0; horizontal-align:center; font-size:16;  padding:10;" [text]="readableTime(newQuote.endMoment)" (tap)="setTime('end')"></Label>
+                <!-- prix -->
+                <label text="Prix du cours €" class="label" ></label>
+                <TextField keyboardType="number" style="color:#04ccf0; font-size:16; padding:10;" maxLength="3" autocorrect="false" [(ngModel)]="newQuote.price" ></TextField>
+                <!-- envoyer -->
+                <GridLayout columns="*,auto,auto,*" rows="auto" style="margin-top:20;">
+                        <StackLayout col="1"><ns-btn text="Annuler" (taponbtn)="newQuoteVisible = false" style="margin:5;" color="#90C5A9"></ns-btn></StackLayout>    
+                        <StackLayout col="2"><ns-btn text="Envoyer" (taponbtn)="sendQuote()" style="margin:5;"  color="#04ccf0"></ns-btn></StackLayout>
+                </GridLayout>
+
+        </StackLayout>
+
+
+<!-- quote -->
+<StackLayout row=1 id="quote" rowspan="2" *ngIf="quoteVisible">
+
+
+                <label class="label" text="Chargement de l'offre..." *ngIf="! data.openQuoteModel.loaded"></label>
+
+                <ScrollView *ngIf="data.openQuoteModel.loaded">
+                        <StackLayout>
+                                <!-- start -->
+                                <label class="label" text="Cours commence à"></label>
+                                <Label style="color:#24D1E7; horizontal-align:center; font-size:16;  padding:10;" [text]="readableTimeFromUnix(data.openQuoteModel.quote.start_uts)"></Label>
+                                <!-- end -->
+                                <label class="label" text="Cours se termine à"></label>
+                                <Label style="color:#04ccf0; horizontal-align:center; font-size:16;  padding:10;" [text]="readableTimeFromUnix(data.openQuoteModel.quote.end_uts)" ></Label>
+                                <!-- prix -->
+                                <label text="Prix du cours €" class="label" ></label>
+                                <Label style="color:#04ccf0; horizontal-align:center; font-size:16;  padding:10;" [text]="data.openQuoteModel.quote.fixed_price" ></Label>
+                                
+                                <stackLayout *ngIf="!data.openQuoteModel.quote.user_id && data.user.prof == 0">
+                                                <label class="disclaimer" textwrap="true" text="En validant, vous acceptez le paiement de ce cours lors de la validation du professeur"></label>
+                                                <label class="disclaimer" textwrap="true" text="Veuillez selectionner la carte de paiement a utiliser pour ce cours"></label>
+                                                
+                                                <StackLayout *ngIf="data.creditCardsModel.loaded">
+                                                        <label class="nocards" textwrap="true"  *ngIf="data.creditCardsModel.cards.length == 0" text="Vous n'avez aucune carte de paiement."></label>
+                                                </StackLayout>
+                                                <label class="nocards" textwrap="true"  *ngIf="!data.creditCardsModel.loaded" text="Chargement de vos cartes..."></label>
+                                                <!-- btn cartes -->
+                                                <StackLayout *ngIf="data.creditCardsModel.loaded">
+                                                        <StackLayout class="card" *ngFor="let card of data.creditCardsModel.cards.data">
+                                                                        <label text="{{displayCCIcon(card.brand)}}" class="fa" style="font-size:35; margin:15; horizontal-align:center;"></label>
+                                                                        <Label style="text-align:center; font-size:16; margin-bottom:5;" text="{{card.name}}"></Label>
+                                                                        <Label style="text-align:center; font-size:12; margin-bottom:15;" text="{{card.brand}} terminant par {{card.last4}}"></Label>
+                                                                        <StackLayout (tap)="confirm(card)"><ns-btn text="utiliser cette carte" color="#fff"></ns-btn> </StackLayout>
+                                                        </StackLayout>
+                                                </StackLayout>
+                
+                
+                                                <StackLayout><ns-btn (taponbtn)="gotocc()"  text="gérer mes cartes" color="#04ccf0"></ns-btn></StackLayout>
+                                </stackLayout>
+
+                                <label text="Ce cours a été réservé." class="label" style="margin-top:30;" *ngIf="data.openQuoteModel.quote.user_id" ></label>
+
+                                
+                                <StackLayout><ns-btn (taponbtn)="quoteVisible = false"  text="Fermer" color="#90C5A9"></ns-btn></StackLayout>
+                        </StackLayout>
+                </ScrollView>
+                
+
+        </StackLayout>
+
+        
+</GridLayout>

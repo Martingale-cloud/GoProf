@@ -1,0 +1,51 @@
+<StackLayout class="mainContent">
+
+        <StackLayout class="header">
+                <Image src="~/images/logo.png" id="logo" ></Image>
+                
+        </StackLayout>
+        <StackLayout class="spikes">                
+        </StackLayout>
+
+        <ScrollView>
+                <StackLayout *ngIf="data.openProf">      
+         
+                        
+                               
+                                                
+                                        <Image class="avatar" src="https://goprof.fr/profilepics/{{data.openProf.id}}.jpg?" col="0" row="0" ></Image>
+                                        <Label class="profName" text="{{data.openProf.fname}} {{data.openProf.lname}} "></Label>
+
+                                        <GridLayout columns="*,auto,*">
+                                                <StackLayout col="1" orientation="horizontal" class="stars">
+                                                        <Label class="star fa" text="&#xf005;"></Label>
+                                                        <Label class="star fa" text="&#xf005;"></Label>
+                                                        <Label class="star fa" text="&#xf005;"></Label>
+                                                        <Label class="star fa" text="&#xf005;"></Label>
+                                                        <Label class="star fa" text="&#xf006;"></Label>
+                                                </StackLayout>
+                                        </GridLayout>
+
+                                        <StackLayout>
+                                                <Label class="boldtext" text="Enseigne"></Label>
+                                                <Label class="text" textwrap="true" text="{{matieres}}"></Label>
+                                                
+                                                <Label class="boldtext" text="A propos du professeur"></Label>
+                                                <Label class="text" textwrap="true" text="{{data.openProf.bio}}"></Label>
+                                        </StackLayout>
+
+                                        <gridLayout columns="*,auto,auto,*" rows="auto">
+                                                <StackLayout col="1"><ns-btn text="Prendre rendez-vous" (taponbtn)="rdv()" style="margin:5;"  color="#C45177"></ns-btn></StackLayout>
+                                                <StackLayout col="2"><ns-btn text="Discuter" (taponbtn)="openConversation()" color="#2E6465" style="margin:5;" ></ns-btn></StackLayout>    
+                                        </gridLayout>
+
+
+                                        
+        
+                    </StackLayout> 
+
+        
+            
+        </ScrollView>
+        
+</StackLayout>

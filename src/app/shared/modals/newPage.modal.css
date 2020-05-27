@@ -1,0 +1,29 @@
+
+#logo {width:80; horizontal-align:center; margin-top:25; margin-bottom:10;}
+.backIcon {horizontal-align:left; padding:20; color:#fff; vertical-align:top; margin-top:17; margin-left:45; font-size: 24; }
+
+.header {
+    background-color: #90c5a9;
+    height:80;
+}
+
+.list-group-item .label{font-size: 16; margin:20;}
+
+
+.pageTitle {background-color: #618673;}
+.pageTitle Label {color: #ffffff; font-size:14; margin: 0 0 5 20; font-weight: bold;}
+
+
+.ficheContainer {border-radius: 15; padding:0; background-color: #fff; margin:20 20 0; }
+
+
+.live {border-color:#fc4b11; height:600; width:375; border-radius:0; horizontal-align: center; margin:0;}
+
+
+.androidViewFinderContainer {height:600; width:375;  horizontal-align: center; margin:0; }
+.viewfinderAndroid {height:600; width:375; }
+
+
+.picture_take {background-color:#fc4b11;color:#fff; font-size: 30; margin:10; width:80; height:80; border-radius:40; text-align:center; }
+.picture_cancel {background-color:#a2c4d5;color:#fff; font-size: 30; margin:10; width:80; height:80; border-radius:40; text-align:center; }
+

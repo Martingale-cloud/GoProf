@@ -1,0 +1,245 @@
+<GridLayout
+  style="
+    background-color: #cea650;
+    background-image: url('~/images/menuback.png');
+  "
+>
+  <!-- <Image src="~/images/menuback.png" stretch="fill"  style="width:100%; height:100%;"></Image>-->
+
+  <!-- menu client -->
+  <StackLayout id="menu">
+    <GridLayout rows="180,auto" columns="270,*">
+      <Image
+        col="0"
+        row="0"
+        src="{{ data.profileSrc }}"
+        *ngIf="data.profileSrc"
+        stretch="aspectFill"
+        class="profilepic"
+      ></Image>
+      <StackLayout col="0" row="1">
+        <Label text="{{ data.user.fname }}" class="profileName"></Label>
+        <ns-btn
+          text="Modifier mon profil"
+          (taponbtn)="goto('settings')"
+          color="#8ec8c8"
+          class="modprofileBtn"
+        ></ns-btn>
+      </StackLayout>
+    </GridLayout>
+
+    <ScrollView>
+      <StackLayout *ngIf="data.user.prof == 0">
+        <Button
+          text="Accueil"
+          *ngIf="!data.routerExtensions.router.isActive('/home', true)"
+          class="menuLink"
+          (tap)="goto('/home')"
+        ></Button>
+
+        <Button
+          text="Profs en ligne"
+          class="menuLink"
+          (tap)="goto('/profs')"
+          style="margin-top: 15;"
+        ></Button>
+        <StackLayout class="ruler"></StackLayout>
+        <Button
+          text="Reserver cours en ligne"
+          class="menuLink"
+          (tap)="goto('/reserver')"
+          style="margin-top: 15;"
+        ></Button>
+        <StackLayout class="ruler"></StackLayout>
+        <!--<Button text="Jeux" class="menuLink" (tap)="goto('/game')" ></Button>
+                <StackLayout class="ruler"></StackLayout>-->
+        <Button text="Videos" class="menuLink" (tap)="goto('/cours')"></Button>
+
+        <Button
+          text="Mon agenda"
+          class="menuLink"
+          (tap)="goto('/agenda')"
+          style="margin-top: 15;"
+        ></Button>
+        <StackLayout class="ruler"></StackLayout>
+        <StackLayout orientation="horizontal" class="counterbox">
+          <Button
+            text="Mes messages"
+            class="menuLink"
+            (tap)="goto('/conversations')"
+          ></Button>
+          <Label
+            [text]="data.messageBulletCount()"
+            *ngIf="data.messageBulletCount() > 0"
+            class="counter"
+          ></Label>
+        </StackLayout>
+        <StackLayout class="ruler"></StackLayout>
+
+        <Button
+          text="Mes cartes de paiement"
+          class="menuLink"
+          (tap)="goto('/creditcards')"
+        ></Button>
+        <Button
+          text="Mon crédit"
+          class="menuLink"
+          (tap)="goto('/compta')"
+        ></Button>
+
+        <Button
+          text="Déconnexion"
+          class="menuLink logout"
+          (tap)="logout()"
+          style="margin-top: 15;"
+        ></Button>
+        <Button
+          text="contact@goprof.fr"
+          class="menuLink"
+          (tap)="contact()"
+        ></Button>
+      </StackLayout>
+
+      <StackLayout *ngIf="data.user.prof == 1">
+        <Button
+          text="Accueil"
+          *ngIf="!data.routerExtensions.router.isActive('/home', true)"
+          class="menuLink"
+          (tap)="goto('/home')"
+        ></Button>
+
+        <Button
+          text="Videos"
+          class="menuLink"
+          (tap)="goto('/cours')"
+          style="margin-top: 20;"
+        ></Button>
+        <StackLayout class="ruler"></StackLayout>
+        <StackLayout orientation="horizontal" class="counterbox">
+          <Button
+            text="Mes demandes"
+            class="menuLink"
+            (tap)="goto('/demandes')"
+          ></Button>
+          <Label
+            [text]="data.demandeBulletCount()"
+            *ngIf="data.demandeBulletCount() > 0"
+            class="counter"
+          ></Label>
+        </StackLayout>
+        <StackLayout class="ruler"></StackLayout>
+        <Button
+          text="Mon agenda"
+          class="menuLink"
+          (tap)="goto('/agenda')"
+        ></Button>
+        <StackLayout class="ruler"></StackLayout>
+        <Button
+          text="Disponibilités"
+          class="menuLink"
+          (tap)="goto('/profagenda')"
+        ></Button>
+        <StackLayout class="ruler"></StackLayout>
+        <StackLayout orientation="horizontal" class="counterbox">
+          <Button
+            text="Mes messages"
+            class="menuLink"
+            (tap)="goto('/conversations')"
+          ></Button>
+          <Label
+            [text]="data.messageBulletCount()"
+            *ngIf="data.messageBulletCount() > 0"
+            class="counter"
+          ></Label>
+        </StackLayout>
+        <StackLayout class="ruler"></StackLayout>
+
+        <Button
+          text="Comptabilité"
+          class="menuLink"
+          (tap)="goto('/compta')"
+        ></Button>
+
+        <Button
+          text="Déconnexion"
+          class="menuLink logout"
+          (tap)="logout()"
+          style="margin-top: 20;"
+        ></Button>
+        <Button
+          text="contact@goprof.fr"
+          class="menuLink"
+          (tap)="contact()"
+        ></Button>
+      </StackLayout>
+    </ScrollView>
+  </StackLayout>
+
+  <GridLayout
+    id="appContainer"
+    (tap)="appclick()"
+    iosOverflowSafeArea="false"
+    style="background-color: #f00; border-radius: 12;"
+    shadow="8"
+  >
+    <router-outlet
+      iosOverflowSafeArea="false"
+      iosOverflowSafeAreaEnabled="false"
+    ></router-outlet>
+    <Button
+      text="&#xf0c9;"
+      class="fa menuIcon"
+      (tap)="openMenu()"
+      *ngIf="data.user.id > 0"
+    ></Button>
+    <Button
+      text="&#xf190;"
+      class="fa backIcon"
+      (tap)="this.routerExtensions.back()"
+      col="2"
+      *ngIf="shouldShowBackBtn()"
+    ></Button>
+
+    <Button
+      text="&#xf044;"
+      class="fa editIcon"
+      (tap)="goto('/addhours')"
+      *ngIf="
+        data.routerExtensions.router.isActive('/profagenda', true) &&
+        data.user.prof == 1
+      "
+    ></Button>
+
+    <!--<GridLayout id="overlay" (tap)="closeMenu()" [style.visibility]="!menuOpen ? 'hidden' : 'visible' ">-->
+    <!-- causes bottom space bug -->
+  </GridLayout>
+
+  <Stacklayout id="socketStatus" *ngIf="!data.socketConnected"
+    ><Label text="Connexion au serveur en cours..."></Label
+  ></Stacklayout>
+
+  <GridLayout id="alertContainer" *ngIf="data.alert.show">
+    <stackLayout style="margin-top: 40;">
+      <StackLayout class="spikes3"></StackLayout>
+      <stackLayout id="alert" style="padding-left: 50;">
+        <Label [text]="data.alert.message"></Label>
+        <ns-btn
+          *ngFor="let btn of data.alert.buttons"
+          [text]="btn.label"
+          (taponbtn)="btn.action()"
+          color="#ffffff"
+        ></ns-btn>
+      </stackLayout>
+    </stackLayout>
+    <Image
+      src="~/images/perso.png"
+      id="perso"
+      style="
+        margin-top: 0;
+        height: 170;
+        margin-left: 5;
+        horizontal-align: left;
+      "
+    ></Image>
+  </GridLayout>
+</GridLayout>

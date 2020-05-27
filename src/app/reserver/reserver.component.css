@@ -1,0 +1,33 @@
+
+
+.mainContent {background-size:100% 100%; background-image: ~/images/back.jpg; }
+
+.radlist {background-color: transparent;}
+
+#logo {width:80; horizontal-align:center; margin-top:25; margin-bottom:10;}
+
+.header {
+    background-color: #90c5a9;
+    height:80;
+}
+
+.filterItems { background-color: #618673; }
+.filterItems label { color:rgba(255,255,255,.6); font-size:12; text-align:center; margin-top:10; }
+.filterItems .dd { text-align: center; font-size:16; font-weight: 700; color: #fff; margin-bottom:10; background-color: #618673; }
+
+
+
+.pageTitle {background-color: #618673;}
+.pageTitle Label {color: #ffffff; font-size:14; margin: 0 0 5 20; font-weight: bold;}
+
+
+.loadingText {text-align: center; margin:30 0; color:#fff;}
+
+
+.Block { margin:10 20 0 20; background-color:rgba(255,255,255,.7); border-radius:5;}
+.avatar {width:60; height:60; border-radius:30; margin:10;}
+
+.hourTime {text-align: center; color: #618673; font-size: 18; margin-top:6; margin-bottom:6;}
+.HourProfName {text-align: center; color: rgba(0,0,0,1); font-size: 14;}
+.Price {text-align: center; color: rgba(0,0,0,.7); font-size: 12; margin-bottom: 6;}
+

@@ -1,0 +1,104 @@
+<StackLayout class="mainContent">
+
+        <StackLayout class="header">
+                <Image src="~/images/logo.png" id="logo" ></Image>
+                
+        </StackLayout>
+        <StackLayout class="spikes">                
+        </StackLayout>
+        <StackLayout class="pageTitle">
+                <Label text="Mes parametres"></Label>                
+        </StackLayout>
+
+        <GridLayout >
+        <ScrollView>
+                <StackLayout>
+                    <stackLayout #imagecontainer>
+
+                        <Image src="{{data.profileSrc}}" #profilepic *ngIf="data.profileSrc" class="profilepic" (tap)="changeProfilePicture()" stretch="aspectFill"></Image>
+                    </stackLayout>
+
+                        
+    
+                    <GridLayout columns="150,*" rows="auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto"  style="margin-top:40; margin-bottom:20;">
+                            
+                            <label col="0" row="0" text="Nom" class="formlabel"></label>
+                            <TextField col="1" row="0" autocorrect="false" [(ngModel)]="data.user.lname"></TextField>
+                
+                
+                            <label col="0" row="1" text="Prénom" class="formlabel"></label>
+                            <TextField col="1" row="1" autocorrect="false" [(ngModel)]="data.user.fname"></TextField>
+                            
+                            
+                            <label col="0" row="2" text="E-mail" class="formlabel"></label>
+                            <TextField col="1" row="2" autocorrect="false" autocapitalizationType="none" [(ngModel)]="data.user.mail"></TextField>
+
+                            <label col="0" row="3" text="Nr de téléphone" class="formlabel"></label>
+                            <TextField col="1" row="3" autocorrect="false" [(ngModel)]="data.user.phone"></TextField>
+            
+                            <label col="0" row="4" text="Mot de passe" class="formlabel"></label>
+                            <TextField col="1" row="4"  secure="true" [(ngModel)]="data.user.pass"></TextField>
+                            
+                            <label col="0" row="5" text="Mot de passe" class="formlabel"></label>
+                            <TextField col="1" row="5"  secure="true" [(ngModel)]="data.user.pass2"></TextField>
+            
+                            <label col="0" row="6" text="A props de moi" class="formlabel"></label>
+                            <TextView col="1" row="6" autocorrect="true" autocapitalizationType="sentences"  minheight="100" [(ngModel)]="data.user.bio"></TextView>
+
+            
+                            <label col="0" row="7" colspan="2" text="Besoin d'aide en" class="formlabel" *ngIf="data.user.prof == 0"></label>
+                            <label col="0" row="7" colspan="2" text="Donne cours de" class="formlabel" *ngIf="data.user.prof == 1"></label>
+                            
+                             <GridLayout col="0" row="8" colspan="2" columns="*,auto,auto,*" rows="auto,auto,auto,auto,auto">
+                                <StackLayout col="1" row="0"><ns-btn text="Math" [highlight]="data.user.need_math" (taponbtn)="data.user.need_math = !data.user.need_math" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                                <StackLayout col="2" row="0"><ns-btn text="Histoire" [highlight]="data.user.need_histoire" (taponbtn)="data.user.need_histoire = !data.user.need_histoire" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                                <StackLayout col="1" row="1"><ns-btn text="Geographie" [highlight]="data.user.need_geo" (taponbtn)="data.user.need_geo = !data.user.need_geo" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                                <StackLayout col="2" row="1"><ns-btn text="Français" [highlight]="data.user.need_francais" (taponbtn)="data.user.need_francais = !data.user.need_francais" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                                <StackLayout col="1" row="2"><ns-btn text="Anglais" [highlight]="data.user.need_anglais" (taponbtn)="data.user.need_anglais = !data.user.need_anglais" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                                <StackLayout col="2" row="2"><ns-btn text="Espagnol" [highlight]="data.user.need_espagnol" (taponbtn)="data.user.need_espagnol = !data.user.need_espagnol" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                                <StackLayout col="1" row="3"><ns-btn text="Allemand" [highlight]="data.user.need_allemand" (taponbtn)="data.user.need_allemand = !data.user.need_allemand" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                                <StackLayout col="2" row="3"><ns-btn text="Physique" [highlight]="data.user.need_physique" (taponbtn)="data.user.need_physique = !data.user.need_physique" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                                <StackLayout col="1" row="4"><ns-btn text="SVT" [highlight]="data.user.need_svt" (taponbtn)="data.user.need_svt = !data.user.need_svt" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                            </GridLayout> 
+
+                            
+            
+                            <label col="0" row="9" colspan="2" text="Je suis en" class="formlabel" *ngIf="data.user.prof == 0"></label>
+            
+                            <GridLayout col="0" row="10" colspan="2" columns="*,auto,auto,auto,*" rows="auto,auto,auto" *ngIf="data.user.prof == 0">
+                                    <StackLayout col="1" row="0"><ns-btn text="cm1" [highlight]="data.user.classe == 'cm1'" (taponbtn)="data.user.classe = 'cm1'" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                                    <StackLayout col="2" row="0"><ns-btn text="cm2" [highlight]="data.user.classe == 'cm2'" (taponbtn)="data.user.classe = 'cm2'" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                                    <StackLayout col="3" row="0"><ns-btn text="6e" [highlight]="data.user.classe == '6e'" (taponbtn)="data.user.classe = '6e'" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                                    <StackLayout col="1" row="1"><ns-btn text="5e" [highlight]="data.user.classe == '5e'" (taponbtn)="data.user.classe = '5e'" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                                    <StackLayout col="2" row="1"><ns-btn text="4e" [highlight]="data.user.classe == '4e'" (taponbtn)="data.user.classe = '4e'" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                                    <StackLayout col="3" row="1"><ns-btn text="3e" [highlight]="data.user.classe == '3e'" (taponbtn)="data.user.classe = '3e'" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                                    <StackLayout col="1" row="2"><ns-btn text="2e" [highlight]="data.user.classe == '2e'" (taponbtn)="data.user.classe = '2e'" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                                    <StackLayout col="2" row="2"><ns-btn text="1e" [highlight]="data.user.classe == '1e'" (taponbtn)="data.user.classe = '1e'" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                                    <StackLayout col="3" row="2"><ns-btn text="term" [highlight]="data.user.classe == 'term'" (taponbtn)="data.user.classe = 'term'" style="margin:5;" color="#296062"></ns-btn></StackLayout>
+                                </GridLayout> 
+
+                            <label col="0" row="9" text="Tarif horaire €" class="formlabel" *ngIf="data.user.prof == 1"></label>
+                            <TextField col="1" row="10" keyboardType="number" maxLength="3" autocorrect="false" [(ngModel)]="data.user.hour_rate" *ngIf="data.user.prof == 1"></TextField>
+
+    
+            
+                    </GridLayout>
+                    <StackLayout col="2"><ns-btn text="Enregistrer" (taponbtn)="save()" style="margin:5;"></ns-btn></StackLayout>    
+
+                    
+                    
+                </StackLayout>
+            </ScrollView>
+
+
+
+
+
+
+
+            
+        </GridLayout>
+            
+    
+        
+</StackLayout>

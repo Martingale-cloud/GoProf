@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>gp</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+      <meta name="apple-mobile-web-app-capable" content="yes"/>
+      <meta name="HandheldFriendly" content="true">
+
+      <style type="text/css">
+      html {-webkit-transform: scale(1); -webkit-text-size-adjust: none; zoom:100%; min-zoom: 100%; max-zoom: 100%; }
+
+        body{margin:0; overflow: hidden; zoom:100%; min-zoom: 100%; max-zoom: 100%; -webkit-transform: scale(1);}
+        canvas {position: absolute; top:0; left:0; bottom:0; right: 0; display:none;}
+        canvas.visible {display:block;}
+      </style>
+
+   </head>
+        <body></body>
+    <script type="text/javascript">
+
+    </script>
+
+    <script type="text/javascript">
+
+/* ES6 Promise */
+        /*!
+        * @overview es6-promise - a tiny implementation of Promises/A+.
+        * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
+        * @license   Licensed under MIT license
+        *            See https://raw.githubusercontent.com/jakearchibald/es6-promise/master/LICENSE
+        * @version   3.0.2
+        */
+
+(function(){"use strict";function lib$es6$promise$utils$$objectOrFunction(x){return typeof x==="function"||typeof x==="object"&&x!==null}function lib$es6$promise$utils$$isFunction(x){return typeof x==="function"}function lib$es6$promise$utils$$isMaybeThenable(x){return typeof x==="object"&&x!==null}var lib$es6$promise$utils$$_isArray;if(!Array.isArray){lib$es6$promise$utils$$_isArray=function(x){return Object.prototype.toString.call(x)==="[object Array]"}}else{lib$es6$promise$utils$$_isArray=Array.isArray}var lib$es6$promise$utils$$isArray=lib$es6$promise$utils$$_isArray;var lib$es6$promise$asap$$len=0;var lib$es6$promise$asap$$toString={}.toString;var lib$es6$promise$asap$$vertxNext;var lib$es6$promise$asap$$customSchedulerFn;var lib$es6$promise$asap$$asap=function asap(callback,arg){lib$es6$promise$asap$$queue[lib$es6$promise$asap$$len]=callback;lib$es6$promise$asap$$queue[lib$es6$promise$asap$$len+1]=arg;lib$es6$promise$asap$$len+=2;if(lib$es6$promise$asap$$len===2){if(lib$es6$promise$asap$$customSchedulerFn){lib$es6$promise$asap$$customSchedulerFn(lib$es6$promise$asap$$flush)}else{lib$es6$promise$asap$$scheduleFlush()}}};function lib$es6$promise$asap$$setScheduler(scheduleFn){lib$es6$promise$asap$$customSchedulerFn=scheduleFn}function lib$es6$promise$asap$$setAsap(asapFn){lib$es6$promise$asap$$asap=asapFn}var lib$es6$promise$asap$$browserWindow=typeof window!=="undefined"?window:undefined;var lib$es6$promise$asap$$browserGlobal=lib$es6$promise$asap$$browserWindow||{};var lib$es6$promise$asap$$BrowserMutationObserver=lib$es6$promise$asap$$browserGlobal.MutationObserver||lib$es6$promise$asap$$browserGlobal.WebKitMutationObserver;var lib$es6$promise$asap$$isNode=typeof process!=="undefined"&&{}.toString.call(process)==="[object process]";var lib$es6$promise$asap$$isWorker=typeof Uint8ClampedArray!=="undefined"&&typeof importScripts!=="undefined"&&typeof MessageChannel!=="undefined";function lib$es6$promise$asap$$useNextTick(){return function(){process.nextTick(lib$es6$promise$asap$$flush)}}function lib$es6$promise$asap$$useVertxTimer(){return function(){lib$es6$promise$asap$$vertxNext(lib$es6$promise$asap$$flush)}}function lib$es6$promise$asap$$useMutationObserver(){var iterations=0;var observer=new lib$es6$promise$asap$$BrowserMutationObserver(lib$es6$promise$asap$$flush);var node=document.createTextNode("");observer.observe(node,{characterData:true});return function(){node.data=iterations=++iterations%2}}function lib$es6$promise$asap$$useMessageChannel(){var channel=new MessageChannel;channel.port1.onmessage=lib$es6$promise$asap$$flush;return function(){channel.port2.postMessage(0)}}function lib$es6$promise$asap$$useSetTimeout(){return function(){setTimeout(lib$es6$promise$asap$$flush,1)}}var lib$es6$promise$asap$$queue=new Array(1e3);function lib$es6$promise$asap$$flush(){for(var i=0;i<lib$es6$promise$asap$$len;i+=2){var callback=lib$es6$promise$asap$$queue[i];var arg=lib$es6$promise$asap$$queue[i+1];callback(arg);lib$es6$promise$asap$$queue[i]=undefined;lib$es6$promise$asap$$queue[i+1]=undefined}lib$es6$promise$asap$$len=0}function lib$es6$promise$asap$$attemptVertx(){try{var r=require;var vertx=r("vertx");lib$es6$promise$asap$$vertxNext=vertx.runOnLoop||vertx.runOnContext;return lib$es6$promise$asap$$useVertxTimer()}catch(e){return lib$es6$promise$asap$$useSetTimeout()}}var lib$es6$promise$asap$$scheduleFlush;if(lib$es6$promise$asap$$isNode){lib$es6$promise$asap$$scheduleFlush=lib$es6$promise$asap$$useNextTick()}else if(lib$es6$promise$asap$$BrowserMutationObserver){lib$es6$promise$asap$$scheduleFlush=lib$es6$promise$asap$$useMutationObserver()}else if(lib$es6$promise$asap$$isWorker){lib$es6$promise$asap$$scheduleFlush=lib$es6$promise$asap$$useMessageChannel()}else if(lib$es6$promise$asap$$browserWindow===undefined&&typeof require==="function"){lib$es6$promise$asap$$scheduleFlush=lib$es6$promise$asap$$attemptVertx()}else{lib$es6$promise$asap$$scheduleFlush=lib$es6$promise$asap$$useSetTimeout()}function lib$es6$promise$$internal$$noop(){}var lib$es6$promise$$internal$$PENDING=void 0;var lib$es6$promise$$internal$$FULFILLED=1;var lib$es6$promise$$internal$$REJECTED=2;var lib$es6$promise$$internal$$GET_THEN_ERROR=new lib$es6$promise$$internal$$ErrorObject;function lib$es6$promise$$internal$$selfFulfillment(){return new TypeError("You cannot resolve a promise with itself")}function lib$es6$promise$$internal$$cannotReturnOwn(){return new TypeError("A promises callback cannot return that same promise.")}function lib$es6$promise$$internal$$getThen(promise){try{return promise.then}catch(error){lib$es6$promise$$internal$$GET_THEN_ERROR.error=error;return lib$es6$promise$$internal$$GET_THEN_ERROR}}function lib$es6$promise$$internal$$tryThen(then,value,fulfillmentHandler,rejectionHandler){try{then.call(value,fulfillmentHandler,rejectionHandler)}catch(e){return e}}function lib$es6$promise$$internal$$handleForeignThenable(promise,thenable,then){lib$es6$promise$asap$$asap(function(promise){var sealed=false;var error=lib$es6$promise$$internal$$tryThen(then,thenable,function(value){if(sealed){return}sealed=true;if(thenable!==value){lib$es6$promise$$internal$$resolve(promise,value)}else{lib$es6$promise$$internal$$fulfill(promise,value)}},function(reason){if(sealed){return}sealed=true;lib$es6$promise$$internal$$reject(promise,reason)},"Settle: "+(promise._label||" unknown promise"));if(!sealed&&error){sealed=true;lib$es6$promise$$internal$$reject(promise,error)}},promise)}function lib$es6$promise$$internal$$handleOwnThenable(promise,thenable){if(thenable._state===lib$es6$promise$$internal$$FULFILLED){lib$es6$promise$$internal$$fulfill(promise,thenable._result)}else if(thenable._state===lib$es6$promise$$internal$$REJECTED){lib$es6$promise$$internal$$reject(promise,thenable._result)}else{lib$es6$promise$$internal$$subscribe(thenable,undefined,function(value){lib$es6$promise$$internal$$resolve(promise,value)},function(reason){lib$es6$promise$$internal$$reject(promise,reason)})}}function lib$es6$promise$$internal$$handleMaybeThenable(promise,maybeThenable){if(maybeThenable.constructor===promise.constructor){lib$es6$promise$$internal$$handleOwnThenable(promise,maybeThenable)}else{var then=lib$es6$promise$$internal$$getThen(maybeThenable);if(then===lib$es6$promise$$internal$$GET_THEN_ERROR){lib$es6$promise$$internal$$reject(promise,lib$es6$promise$$internal$$GET_THEN_ERROR.error)}else if(then===undefined){lib$es6$promise$$internal$$fulfill(promise,maybeThenable)}else if(lib$es6$promise$utils$$isFunction(then)){lib$es6$promise$$internal$$handleForeignThenable(promise,maybeThenable,then)}else{lib$es6$promise$$internal$$fulfill(promise,maybeThenable)}}}function lib$es6$promise$$internal$$resolve(promise,value){if(promise===value){lib$es6$promise$$internal$$reject(promise,lib$es6$promise$$internal$$selfFulfillment())}else if(lib$es6$promise$utils$$objectOrFunction(value)){lib$es6$promise$$internal$$handleMaybeThenable(promise,value)}else{lib$es6$promise$$internal$$fulfill(promise,value)}}function lib$es6$promise$$internal$$publishRejection(promise){if(promise._onerror){promise._onerror(promise._result)}lib$es6$promise$$internal$$publish(promise)}function lib$es6$promise$$internal$$fulfill(promise,value){if(promise._state!==lib$es6$promise$$internal$$PENDING){return}promise._result=value;promise._state=lib$es6$promise$$internal$$FULFILLED;if(promise._subscribers.length!==0){lib$es6$promise$asap$$asap(lib$es6$promise$$internal$$publish,promise)}}function lib$es6$promise$$internal$$reject(promise,reason){if(promise._state!==lib$es6$promise$$internal$$PENDING){return}promise._state=lib$es6$promise$$internal$$REJECTED;promise._result=reason;lib$es6$promise$asap$$asap(lib$es6$promise$$internal$$publishRejection,promise)}function lib$es6$promise$$internal$$subscribe(parent,child,onFulfillment,onRejection){var subscribers=parent._subscribers;var length=subscribers.length;parent._onerror=null;subscribers[length]=child;subscribers[length+lib$es6$promise$$internal$$FULFILLED]=onFulfillment;subscribers[length+lib$es6$promise$$internal$$REJECTED]=onRejection;if(length===0&&parent._state){lib$es6$promise$asap$$asap(lib$es6$promise$$internal$$publish,parent)}}function lib$es6$promise$$internal$$publish(promise){var subscribers=promise._subscribers;var settled=promise._state;if(subscribers.length===0){return}var child,callback,detail=promise._result;for(var i=0;i<subscribers.length;i+=3){child=subscribers[i];callback=subscribers[i+settled];if(child){lib$es6$promise$$internal$$invokeCallback(settled,child,callback,detail)}else{callback(detail)}}promise._subscribers.length=0}function lib$es6$promise$$internal$$ErrorObject(){this.error=null}var lib$es6$promise$$internal$$TRY_CATCH_ERROR=new lib$es6$promise$$internal$$ErrorObject;function lib$es6$promise$$internal$$tryCatch(callback,detail){try{return callback(detail)}catch(e){lib$es6$promise$$internal$$TRY_CATCH_ERROR.error=e;return lib$es6$promise$$internal$$TRY_CATCH_ERROR}}function lib$es6$promise$$internal$$invokeCallback(settled,promise,callback,detail){var hasCallback=lib$es6$promise$utils$$isFunction(callback),value,error,succeeded,failed;if(hasCallback){value=lib$es6$promise$$internal$$tryCatch(callback,detail);if(value===lib$es6$promise$$internal$$TRY_CATCH_ERROR){failed=true;error=value.error;value=null}else{succeeded=true}if(promise===value){lib$es6$promise$$internal$$reject(promise,lib$es6$promise$$internal$$cannotReturnOwn());return}}else{value=detail;succeeded=true}if(promise._state!==lib$es6$promise$$internal$$PENDING){}else if(hasCallback&&succeeded){lib$es6$promise$$internal$$resolve(promise,value)}else if(failed){lib$es6$promise$$internal$$reject(promise,error)}else if(settled===lib$es6$promise$$internal$$FULFILLED){lib$es6$promise$$internal$$fulfill(promise,value)}else if(settled===lib$es6$promise$$internal$$REJECTED){lib$es6$promise$$internal$$reject(promise,value)}}function lib$es6$promise$$internal$$initializePromise(promise,resolver){try{resolver(function resolvePromise(value){lib$es6$promise$$internal$$resolve(promise,value)},function rejectPromise(reason){lib$es6$promise$$internal$$reject(promise,reason)})}catch(e){lib$es6$promise$$internal$$reject(promise,e)}}function lib$es6$promise$enumerator$$Enumerator(Constructor,input){var enumerator=this;enumerator._instanceConstructor=Constructor;enumerator.promise=new Constructor(lib$es6$promise$$internal$$noop);if(enumerator._validateInput(input)){enumerator._input=input;enumerator.length=input.length;enumerator._remaining=input.length;enumerator._init();if(enumerator.length===0){lib$es6$promise$$internal$$fulfill(enumerator.promise,enumerator._result)}else{enumerator.length=enumerator.length||0;enumerator._enumerate();if(enumerator._remaining===0){lib$es6$promise$$internal$$fulfill(enumerator.promise,enumerator._result)}}}else{lib$es6$promise$$internal$$reject(enumerator.promise,enumerator._validationError())}}lib$es6$promise$enumerator$$Enumerator.prototype._validateInput=function(input){return lib$es6$promise$utils$$isArray(input)};lib$es6$promise$enumerator$$Enumerator.prototype._validationError=function(){return new Error("Array Methods must be provided an Array")};lib$es6$promise$enumerator$$Enumerator.prototype._init=function(){this._result=new Array(this.length)};var lib$es6$promise$enumerator$$default=lib$es6$promise$enumerator$$Enumerator;lib$es6$promise$enumerator$$Enumerator.prototype._enumerate=function(){var enumerator=this;var length=enumerator.length;var promise=enumerator.promise;var input=enumerator._input;for(var i=0;promise._state===lib$es6$promise$$internal$$PENDING&&i<length;i++){enumerator._eachEntry(input[i],i)}};lib$es6$promise$enumerator$$Enumerator.prototype._eachEntry=function(entry,i){var enumerator=this;var c=enumerator._instanceConstructor;if(lib$es6$promise$utils$$isMaybeThenable(entry)){if(entry.constructor===c&&entry._state!==lib$es6$promise$$internal$$PENDING){entry._onerror=null;enumerator._settledAt(entry._state,i,entry._result)}else{enumerator._willSettleAt(c.resolve(entry),i)}}else{enumerator._remaining--;enumerator._result[i]=entry}};lib$es6$promise$enumerator$$Enumerator.prototype._settledAt=function(state,i,value){var enumerator=this;var promise=enumerator.promise;if(promise._state===lib$es6$promise$$internal$$PENDING){enumerator._remaining--;if(state===lib$es6$promise$$internal$$REJECTED){lib$es6$promise$$internal$$reject(promise,value)}else{enumerator._result[i]=value}}if(enumerator._remaining===0){lib$es6$promise$$internal$$fulfill(promise,enumerator._result)}};lib$es6$promise$enumerator$$Enumerator.prototype._willSettleAt=function(promise,i){var enumerator=this;lib$es6$promise$$internal$$subscribe(promise,undefined,function(value){enumerator._settledAt(lib$es6$promise$$internal$$FULFILLED,i,value)},function(reason){enumerator._settledAt(lib$es6$promise$$internal$$REJECTED,i,reason)})};function lib$es6$promise$promise$all$$all(entries){return new lib$es6$promise$enumerator$$default(this,entries).promise}var lib$es6$promise$promise$all$$default=lib$es6$promise$promise$all$$all;function lib$es6$promise$promise$race$$race(entries){var Constructor=this;var promise=new Constructor(lib$es6$promise$$internal$$noop);if(!lib$es6$promise$utils$$isArray(entries)){lib$es6$promise$$internal$$reject(promise,new TypeError("You must pass an array to race."));return promise}var length=entries.length;function onFulfillment(value){lib$es6$promise$$internal$$resolve(promise,value)}function onRejection(reason){lib$es6$promise$$internal$$reject(promise,reason)}for(var i=0;promise._state===lib$es6$promise$$internal$$PENDING&&i<length;i++){lib$es6$promise$$internal$$subscribe(Constructor.resolve(entries[i]),undefined,onFulfillment,onRejection)}return promise}var lib$es6$promise$promise$race$$default=lib$es6$promise$promise$race$$race;function lib$es6$promise$promise$resolve$$resolve(object){var Constructor=this;if(object&&typeof object==="object"&&object.constructor===Constructor){return object}var promise=new Constructor(lib$es6$promise$$internal$$noop);lib$es6$promise$$internal$$resolve(promise,object);return promise}var lib$es6$promise$promise$resolve$$default=lib$es6$promise$promise$resolve$$resolve;function lib$es6$promise$promise$reject$$reject(reason){var Constructor=this;var promise=new Constructor(lib$es6$promise$$internal$$noop);lib$es6$promise$$internal$$reject(promise,reason);return promise}var lib$es6$promise$promise$reject$$default=lib$es6$promise$promise$reject$$reject;var lib$es6$promise$promise$$counter=0;function lib$es6$promise$promise$$needsResolver(){throw new TypeError("You must pass a resolver function as the first argument to the promise constructor")}function lib$es6$promise$promise$$needsNew(){throw new TypeError("Failed to construct 'Promise': Please use the 'new' operator, this object constructor cannot be called as a function.")}var lib$es6$promise$promise$$default=lib$es6$promise$promise$$Promise;function lib$es6$promise$promise$$Promise(resolver){this._id=lib$es6$promise$promise$$counter++;this._state=undefined;this._result=undefined;this._subscribers=[];if(lib$es6$promise$$internal$$noop!==resolver){if(!lib$es6$promise$utils$$isFunction(resolver)){lib$es6$promise$promise$$needsResolver()}if(!(this instanceof lib$es6$promise$promise$$Promise)){lib$es6$promise$promise$$needsNew()}lib$es6$promise$$internal$$initializePromise(this,resolver)}}lib$es6$promise$promise$$Promise.all=lib$es6$promise$promise$all$$default;lib$es6$promise$promise$$Promise.race=lib$es6$promise$promise$race$$default;lib$es6$promise$promise$$Promise.resolve=lib$es6$promise$promise$resolve$$default;lib$es6$promise$promise$$Promise.reject=lib$es6$promise$promise$reject$$default;lib$es6$promise$promise$$Promise._setScheduler=lib$es6$promise$asap$$setScheduler;lib$es6$promise$promise$$Promise._setAsap=lib$es6$promise$asap$$setAsap;lib$es6$promise$promise$$Promise._asap=lib$es6$promise$asap$$asap;lib$es6$promise$promise$$Promise.prototype={constructor:lib$es6$promise$promise$$Promise,then:function(onFulfillment,onRejection){var parent=this;var state=parent._state;if(state===lib$es6$promise$$internal$$FULFILLED&&!onFulfillment||state===lib$es6$promise$$internal$$REJECTED&&!onRejection){return this}var child=new this.constructor(lib$es6$promise$$internal$$noop);var result=parent._result;if(state){var callback=arguments[state-1];lib$es6$promise$asap$$asap(function(){lib$es6$promise$$internal$$invokeCallback(state,child,callback,result)})}else{lib$es6$promise$$internal$$subscribe(parent,child,onFulfillment,onRejection)}return child},"catch":function(onRejection){return this.then(null,onRejection)}};function lib$es6$promise$polyfill$$polyfill(){var local;if(typeof global!=="undefined"){local=global}else if(typeof self!=="undefined"){local=self}else{try{local=Function("return this")()}catch(e){throw new Error("polyfill failed because global object is unavailable in this environment")}}var P=local.Promise;if(P&&Object.prototype.toString.call(P.resolve())==="[object Promise]"&&!P.cast){return}local.Promise=lib$es6$promise$promise$$default}var lib$es6$promise$polyfill$$default=lib$es6$promise$polyfill$$polyfill;var lib$es6$promise$umd$$ES6Promise={Promise:lib$es6$promise$promise$$default,polyfill:lib$es6$promise$polyfill$$default};if(typeof define==="function"&&define["amd"]){define(function(){return lib$es6$promise$umd$$ES6Promise})}else if(typeof module!=="undefined"&&module["exports"]){module["exports"]=lib$es6$promise$umd$$ES6Promise}else if(typeof this!=="undefined"){this["ES6Promise"]=lib$es6$promise$umd$$ES6Promise}lib$es6$promise$polyfill$$default()}).call(this);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * WebViewInterface class to handle communication between webView and Android/iOS.
+ */
+ var NSWebViewinterface = (function () {
+    function NSWebViewinterface() {
+        
+        /**
+         * Mapping of native eventName and its handler in webView
+         */
+        this.eventListenerMap = {};
+        
+        /**
+         * Mapping of JS Call responseId and result for iOS
+         */
+        this._iosResponseMap = {};
+        
+        /**
+         * Counter of iOS JS Call responseId
+         */
+        this._iosCntResponseId = 0;
+    }
+    
+    /**
+     * Handles events/commands emitted by android/ios. This function is called from nativescript.
+     * @param   {string}    eventName - Native event/command name
+     * @param   {data}      data - Payload for the event/command
+     */
+    NSWebViewinterface.prototype._onNativeEvent = function (eventName, data) {
+        var lstEvtListeners = this.eventListenerMap[eventName] || [];
+        for (var _i = 0; _i < lstEvtListeners.length; _i++) {
+            var listener = lstEvtListeners[_i];
+            var retnVal = listener && listener(data);
+            // if any handler return false, not executing any further handlers for that event.
+            if (retnVal === false) {
+                break;
+            }
+        }
+    };
+    
+   /**
+     * Handles JS function calls by android/ios. This function is called from nativescript.
+     * Result value of JS function call can be promise or any other data.
+     * @param   {number}    reqId - Internal communication id
+     * @param   {string}    functionName - Function to be executed in webView
+     * @param   {any[]}     args  
+     */
+    NSWebViewinterface.prototype._callJSFunction = function (reqId, functionName, args) {
+        var _this = this;
+        var resolvedFn = _this._getResolvedFunction(functionName);
+        if(resolvedFn){
+            var retnVal = resolvedFn.apply(window, args);
+            if (retnVal && retnVal.then) {
+                retnVal.then(function (value) {
+                    _this._sendJSCallResponse(reqId, value);
+                }, function(error){
+                    _this._sendJSCallResponse(reqId, error, true);
+                });
+            }
+            else {
+                this._sendJSCallResponse(reqId, retnVal);
+            }
+        }
+    }
+    
+    /**
+     * Resolves a function, if the function to be executed is in deep object chain.
+     * e.g If we want to execute a function 'parent.child.child.fn' from native app, 
+     * this function will extract fn from the object chain. 
+     * We can do it by using eval also, but as there is a way, why to invite unknown security risks? 
+     * 
+     */
+    NSWebViewinterface.prototype._getResolvedFunction = function(functionName){
+        if(functionName && (functionName = functionName.trim()).length){
+            functionName = functionName.indexOf('window.') === 0 ? functionName.replace('window.', '') : functionName;
+            var arrFnPath = functionName.split('.');
+            var fn = window;
+            for(var i =0; i < arrFnPath.length; i++){
+                if(!fn[arrFnPath[i]]){
+                    fn = null;
+                    break;
+                }
+                fn = fn[arrFnPath[i]]; 
+            }
+            return fn;
+        }
+    }
+    
+    /**
+     * Returns JS Call response by emitting internal _jsCallRespone event
+     */
+    NSWebViewinterface.prototype._sendJSCallResponse = function (reqId, response, isError) {
+        var oResponse = {
+            reqId: reqId,
+            response: response || null,
+            isError: !!isError
+        };
+        this.emit('_jsCallResponse', oResponse);
+    };
+    
+    /**
+     * Creates temporary iFrame element to load custom url, for sending handshake message 
+     * to iOS which is necessary to initiate data transfer from webView to iOS
+     */
+    NSWebViewinterface.prototype._createIFrame = function (src) {
+        var rootElm = document.documentElement;
+        var newFrameElm = document.createElement("IFRAME");
+        newFrameElm.setAttribute("src", src);
+        rootElm.appendChild(newFrameElm);
+        return newFrameElm;
+    };
+    
+    /**
+     * Sends handshaking signal to iOS using custom url, for sending event payload or JS Call response.
+     * As iOS do not allow to send any data from webView. Here we are sending data in two steps.
+     * 1. Send handshake signal, by loading custom url in iFrame with metadata (eventName, unique responseId)
+     * 2. On intercept of this request, iOS calls _getIOSResponse with the responseId to fetch the data.
+     */
+    NSWebViewinterface.prototype._emitEventToIOS = function (eventName, data) {
+        this._iosResponseMap[++this._iosCntResponseId] = data;
+        var metadata = { eventName: eventName, resId: this._iosCntResponseId };
+        var url = 'js2ios:' + JSON.stringify(metadata);
+        var iFrame = this._createIFrame(url);
+        iFrame.parentNode.removeChild(iFrame);
+    };
+    
+    /**
+     * Returns data to iOS. This function is called from iOS.
+     */
+    NSWebViewinterface.prototype._getIOSResponse = function (resId) {
+        var response = this._iosResponseMap[resId];
+        delete this._iosResponseMap[resId];
+        return response;
+    };
+    
+    /**
+     * Calls native android function to emit event and payload to android
+     */
+    NSWebViewinterface.prototype._emitEventToAndroid = function (eventName, data) {
+        window.androidWebViewInterface.handleEventFromWebView(eventName, data);
+    };
+    
+    /**
+     * Registers handlers for android/ios event/command
+     */
+    NSWebViewinterface.prototype.on = function (eventName, callback) {
+        var lstListeners = this.eventListenerMap[eventName] || (this.eventListenerMap[eventName] = []);
+        lstListeners.push(callback);
+    };
+    
+    /**
+     * Emits event to android/ios
+     */
+    NSWebViewinterface.prototype.emit = function (eventName, data) {
+        var strData = typeof data === 'object' ? JSON.stringify(data) : data;
+        if (window.androidWebViewInterface) {
+            this._emitEventToAndroid(eventName, strData);
+        }
+        else {
+            this._emitEventToIOS(eventName, strData);
+        }
+    };
+    return NSWebViewinterface;
+})();
+
+
+window.nsWebViewInterface = new NSWebViewinterface();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+ * HiDPI Canvas Polyfill (1.0.10)
+ *
+ * Author: Jonathan D. Johnson (http://jondavidjohn.com)
+ * Homepage: https://github.com/jondavidjohn/hidpi-canvas-polyfill
+ * Issue Tracker: https://github.com/jondavidjohn/hidpi-canvas-polyfill/issues
+ * License: Apache-2.0
+*/
+!function(a){var b=function(){var a=document.createElement("canvas"),b=a.getContext("2d"),c=b.backingStorePixelRatio||b.webkitBackingStorePixelRatio||b.mozBackingStorePixelRatio||b.msBackingStorePixelRatio||b.oBackingStorePixelRatio||b.backingStorePixelRatio||1;return(window.devicePixelRatio||1)/c}(),c=function(a,b){for(var c in a)a.hasOwnProperty(c)&&b(a[c],c)},d={fillRect:"all",clearRect:"all",strokeRect:"all",moveTo:"all",lineTo:"all",arc:[0,1,2],arcTo:"all",bezierCurveTo:"all",isPointinPath:"all",isPointinStroke:"all",quadraticCurveTo:"all",rect:"all",translate:"all",createRadialGradient:"all",createLinearGradient:"all"};1!==b&&(c(d,function(c,d){a[d]=function(a){return function(){var d,e,f=Array.prototype.slice.call(arguments);if("all"===c)f=f.map(function(a){return a*b});else if(Array.isArray(c))for(d=0,e=c.length;e>d;d++)f[c[d]]*=b;return a.apply(this,f)}}(a[d])}),a.stroke=function(a){return function(){this.lineWidth*=b,a.apply(this,arguments),this.lineWidth/=b}}(a.stroke),a.fillText=function(a){return function(){var c=Array.prototype.slice.call(arguments);c[1]*=b,c[2]*=b,this.font=this.font.replace(/(\d+)(px|em|rem|pt)/g,function(a,c,d){return c*b+d}),a.apply(this,c),this.font=this.font.replace(/(\d+)(px|em|rem|pt)/g,function(a,c,d){return c/b+d})}}(a.fillText),a.strokeText=function(a){return function(){var c=Array.prototype.slice.call(arguments);c[1]*=b,c[2]*=b,this.font=this.font.replace(/(\d+)(px|em|rem|pt)/g,function(a,c,d){return c*b+d}),a.apply(this,c),this.font=this.font.replace(/(\d+)(px|em|rem|pt)/g,function(a,c,d){return c/b+d})}}(a.strokeText))}(CanvasRenderingContext2D.prototype),function(a){a.getContext=function(a){return function(b){var c,d,e=a.call(this,b);return"2d"===b&&(c=e.backingStorePixelRatio||e.webkitBackingStorePixelRatio||e.mozBackingStorePixelRatio||e.msBackingStorePixelRatio||e.oBackingStorePixelRatio||e.backingStorePixelRatio||1,d=(window.devicePixelRatio||1)/c,d>1&&(this.style.height=this.height+"px",this.style.width=this.width+"px",this.width*=d,this.height*=d)),e}}(a.getContext)}(HTMLCanvasElement.prototype);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* GoProf Drawpage */
+
+
+
+
+
+
+        console.log('inside webview JS');
+        var oWebViewInterface = window.nsWebViewInterface;
+
+        
+
+
+        //direct draw -> true draws on screen and sends to server, false sends to server waits for return
+        var directDraw = true; //if true, need to be adjusted on server (send only to others)
+        
+
+
+        //remove defaults
+        document.ontouchstart = function(e){ e.preventDefault(); }
+        document.ontouchmove = function(e){ e.preventDefault(); }
+        document.onGestureChange = function(e){ e.preventDefault(); }
+
+        
+
+
+        var handleTouchstart = function(evt) 
+        {
+            // Stop the bouncing -- no parents are scrollable
+            evt.preventDefault();
+        };
+        var handleTouchmove = function(evt) 
+        {
+		    // Stop the bouncing -- no parents are scrollable
+		    evt.preventDefault();
+        };
+    
+
+
+
+        var supportsPassiveOption = false;
+        try {
+            var opts = Object.defineProperty({}, 'passive', {
+                get: function() {
+                    supportsPassiveOption = true;
+                }
+            });
+            window.addEventListener('test', null, opts);
+        } catch (e) {}
+        
+
+        window.addEventListener('touchstart', handleTouchstart, supportsPassiveOption ? { passive : false } : false);
+		window.addEventListener('touchmove', handleTouchmove, supportsPassiveOption ? { passive : false } : false);
+
+
+        //add roundTo method on numbers
+        Number.prototype.roundTo = function(num) 
+        {
+            var resto = this % num;
+            if (resto <= (num/2)) { 
+            return this-resto;
+            } else {
+            return this+num-resto;
+            }
+        }
+
+
+
+        //Variables
+        var width  = window.innerWidth;
+        var height = window.innerHeight;
+        var ctx;
+        var ctxList = {};
+        var canvas;
+        var pointer = {};
+        var lastPointer = {};
+
+        // mouse event variables
+		var focusPoint = {x : 0, y: 0 };
+      	var dragStart;		
+		var twofingers = false;
+		var lastFingerdistance = 0;
+
+        var previousStrokePoints = [];
+        var numberOfPoints = 0;
+        
+//Touch Start
+      function start(evt)
+	  {
+
+          if(evt.touches.length == 2) //2 doigts
+			{
+				twofingers = true;
+				
+				focusPoint.x = evt.touches[0].pageX;
+				focusPoint.y = evt.touches[0].pageY;
+				dragStart = ctx.transformedPoint(focusPoint.x,focusPoint.y);
+
+				lastFingerdistance = fingerDistance(evt);
+
+
+			}
+
+		 
+		  else
+		  {
+                numberOfPoints = 0;
+                pointer = ctx.transformedPoint( evt.touches[0].pageX, evt.touches[0].pageY );
+                pointer.down = true;
+		  }
+ 
+		  
+      }
+
+//Touch Move
+      function move(evt)
+	  {
+        
+			if(twofingers)
+			{
+				
+				
+				focusPoint.x = evt.touches[0].pageX;
+				focusPoint.y = evt.touches[0].pageY;
+				
+				
+
+
+				//zoom
+				var factor = fingerDistance(evt) / lastFingerdistance
+				ctx.scale(factor,factor);
+				lastFingerdistance = fingerDistance(evt);
+
+
+				//move
+				var pt = ctx.transformedPoint(focusPoint.x,focusPoint.y);
+				ctx.translate(pt.x-dragStart.x,pt.y-dragStart.y);
+
+
+				redraw();
+            }
+        
+			else if(pointer.down)
+			{
+                var transformed = ctx.transformedPoint( evt.touches[0].pageX, evt.touches[0].pageY );
+                
+                if(directDraw) drawSegment({sx : pointer.x, sy : pointer.y, ex : transformed.x, ey : transformed.y});
+                oWebViewInterface.emit('drawLine',{sx : pointer.x*window.devicePixelRatio, sy : pointer.y*window.devicePixelRatio, ex : transformed.x*window.devicePixelRatio, ey : transformed.y*window.devicePixelRatio});
+                
+                numberOfPoints++;
+                // Reset previousStrokePoints
+                // previousStrokePoints = [];
+                // numberOfPoints = 0;
+                // Save points
+                // points.push({sx : pointer.x*window.devicePixelRatio, sy : pointer.y*window.devicePixelRatio, ex : transformed.x*window.devicePixelRatio, ey : transformed.y*window.devicePixelRatio});
+                // previousStrokePoints.push({sx : pointer.x*window.devicePixelRatio, sy : pointer.y*window.devicePixelRatio, ex : transformed.x*window.devicePixelRatio, ey : transformed.y*window.devicePixelRatio});
+                
+
+				pointer.x = transformed.x;
+                pointer.y = transformed.y;
+			}
+
+		  
+      }
+
+
+//Touch End
+      function end(evt)
+	  {
+        
+		  if(twofingers)
+			{
+				twofingers = false;
+				dragStart = null;
+			}
+		  else
+		  {
+            pointer.down = false;
+            // console.log('erase')
+            // ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+            updateThumbnail();  
+		  }
+		  
+
+      }
+
+        
+
+        function drawSegment(coords)
+        {
+
+
+            ctx.segments.push(coords);
+
+          ctx.beginPath();
+          ctx.moveTo(coords.sx, coords.sy);
+          ctx.lineTo(coords.ex, coords.ey);
+          ctx.stroke();
+        //   ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+        //   console.log('draw');
+        
+        }
+
+        oWebViewInterface.on('drawLine', function(data)
+        {
+            //multiply by screen factor
+            data.sx /= window.devicePixelRatio;
+            data.sy /= window.devicePixelRatio;
+            data.ex /= window.devicePixelRatio;
+            data.ey /= window.devicePixelRatio;
+
+            
+            drawSegment(data);
+        });
+
+        oWebViewInterface.on('undoDraw', function(data)
+        {
+            ctx.clearRect(0, 0, width, height);
+           
+
+           ctx.segments.splice(-data, data);
+           redraw();
+            // ctx.clearRect(0, 0, width, height);
+            // //multiply by screen factor
+            // data.sx /= window.devicePixelRatio;
+            // data.sy /= window.devicePixelRatio;
+            // data.ex /= window.devicePixelRatio;
+            // data.ey /= window.devicePixelRatio;
+
+            
+            // drawSegment(data);
+        });
+
+        oWebViewInterface.on('tapUndo', function()
+        {
+
+            ctx.clearRect(0, 0, width, height);
+           
+
+            ctx.segments.splice(-numberOfPoints, numberOfPoints);
+            redraw();
+            // redrawForBothClients();
+            // updateThumbnail();
+            oWebViewInterface.emit('undoDraw', numberOfPoints);
+        });
+
+        oWebViewInterface.on('createPage', function(data)
+        {
+            console.log(data);
+
+
+            var canvas = document.createElement("canvas");
+            document.body.appendChild(canvas);
+
+            canvas.id = "c_"+data.id;
+            canvas.height = height;
+            canvas.width = width;
+
+            
+
+            
+            ctxList[canvas.id] = canvas.getContext('2d'); 
+
+
+            //add geo tracking methods to ctx
+			trackTransforms(ctxList[canvas.id]);
+
+
+            //default parameters
+            ctxList[canvas.id].lineWidth = 2;
+            ctxList[canvas.id].lineJoin = 'round';
+            ctxList[canvas.id].lineCap = 'round';
+            ctxList[canvas.id].strokeStyle = '#29536e';
+            ctxList[canvas.id].fillStyle = '#29536e';
+
+
+            //create segment container
+            ctxList[canvas.id].segments = [];
+
+
+            //indiquer le ctx type
+            ctxList[canvas.id].pageType = data.pageType;
+
+            //Ajouter le fond
+            drawBackground(ctxList[canvas.id]);
+
+
+            //Events Touch
+            canvas.addEventListener('touchstart', start, 0);
+            canvas.addEventListener('touchend', end, 0);
+            canvas.addEventListener('touchmove', move, 0);
+
+
+            //Si il y a un image, on ajoute l'image sur le canvas
+            if(data.src)
+            {
+                var image = new Image();
+                image.onload = function() {
+                    ctxList[canvas.id].drawImage(image, 0, 0);
+                    ctxList[canvas.id].image = image
+
+                    
+                };
+                image.src = data.src;
+            }  
+
+           
+
+             
+
+            if(data.pageType == "copy")
+            {
+                   var currentCanvas = document.getElementsByClassName("visible")[0];
+                    ctxList[canvas.id].drawImage(currentCanvas, 0, 0, canvas.width, canvas.height);
+            }    
+
+
+            
+        });
+
+
+
+       
+
+
+
+        oWebViewInterface.on('switchPage', (data) =>
+        {
+            var visibles = document.getElementsByClassName("visible");
+
+            for(var i = 0; i < visibles.length; i++)
+            {
+                visibles[i].classList.remove("visible");
+            }    
+
+
+            var canvas = document.getElementById('c_'+data.id);
+            canvas.classList.add("visible");
+
+            ctx = ctxList[canvas.id];
+
+
+            updateThumbnail();
+                
+                
+       
+
+        });
+
+
+
+function drawBackground(ctx)
+{
+    //ajouter le fond blanc par defaut
+    
+    var tl = ctx.transformedPoint( 0, 0 );
+    var br = ctx.transformedPoint( width, height );
+    ctx.lineWidth = 1; ctx.strokeStyle = '#eee'; ctx.fillStyle = '#eee';
+    
+    
+    if(ctx.pageType == "grid")  
+            {
+                ctx.beginPath(); 
+                //lignes verticales
+                for( x = tl.x.roundTo(25); x < br.x; x+=25)
+                {
+                    ctx.moveTo(x,tl.y);
+                    ctx.lineTo(x,br.y);
+                }  
+                //lignes horizontales
+                for( y = tl.y.roundTo(25); y < br.y; y+=25)
+                {
+                    ctx.moveTo(tl.x,y);
+                    ctx.lineTo(br.x,y);
+                }
+                ctx.stroke();
+            }
+
+
+    if(ctx.pageType == "isometric")
+            {
+                ctx.beginPath();
+                //lignes verticalles
+                for( x = tl.x.roundTo(25); x < br.x; x+=25)
+                {
+                    ctx.moveTo(x,tl.y);
+                    ctx.lineTo(x,br.y);
+                }  
+
+
+                //diag1
+                for( y = tl.y.roundTo(25)-375; y < br.y; y+=25)
+                {
+                    ctx.moveTo(tl.x,y);
+                    ctx.lineTo(br.x,y+375);
+                } 
+
+                //diag2
+                for( y = tl.y.roundTo(25)-375; y < br.y; y+=25)
+                {
+                    ctx.moveTo(tl.x,y);
+                    ctx.lineTo(br.x,y-375);
+                } 
+
+                ctx.stroke();
+            }
+
+    //clean parameters
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = '#29536e';
+    ctx.fillStyle = '#29536e';
+
+
+
+    //ajouter image si il y en a une
+    if(ctx.image)
+    {
+
+        console.log('has to draw image..');
+        console.log(ctx.image);
+        ctx.drawImage(ctx.image, 0,0);
+    } 
+}
+
+
+
+
+
+
+
+
+//export canvas data
+
+ function getCanvasImage()
+        {
+            return document.getElementsByClassName("visible")[0].toDataURL("image/png");
+        }
+
+function getCanvasThumbnail()
+        {
+            var currentCanvas = document.getElementsByClassName("visible")[0];
+
+            var minicanvas = document.createElement('canvas');
+            minicanvas.width = Math.round(currentCanvas.width/2);
+            minicanvas.height = Math.round(currentCanvas.height/2);
+            var minictx = minicanvas.getContext("2d");
+            
+            //remplir de blanc
+            minictx.fillStyle = "white";
+            minictx.fillRect(0, 0, minicanvas.width, minicanvas.height);
+
+            //première passe (antialiasing)
+            minictx.drawImage(currentCanvas, 0, 0, minicanvas.width/2, minicanvas.height/2);
+  
+            //deuxième passe
+            //minictx.drawImage(minicanvas, 0, 0, Math.round(minicanvas.width/2), Math.round(minicanvas.height/2));
+
+            //passe finale
+            var resultCanvas = document.createElement('canvas');
+            resultCanvas.width = 124;
+            resultCanvas.height = 200;
+            var resultctx = resultCanvas.getContext("2d");
+
+            resultctx.drawImage(minicanvas,0,0,Math.round(minicanvas.width/2), Math.round(minicanvas.height/2),
+                             0,0,resultCanvas.width,resultCanvas.height);
+            
+            return resultCanvas.toDataURL("image/jpeg");
+        }
+
+        function getCanvasData()
+        {
+            return {image : getCanvasImage(), thumbnail : getCanvasThumbnail()};
+        }
+
+
+
+        var thumbnailTimeOut;
+        function updateThumbnail() //timeout pour ne pas trop en faire...
+        {
+            clearTimeout(thumbnailTimeOut);
+            thumbnailTimeOut = setTimeout(function()
+            { 
+                oWebViewInterface.emit('updateThumbnail', getCanvasThumbnail());
+            }, 300);
+        }
+
+
+
+
+
+        function redrawForBothClients()
+		{     
+                // Reset the canvas
+				ctx.save();
+				ctx.setTransform(1,0,0,1,0,0);
+				ctx.clearRect(0,0,width,height);
+				ctx.restore();
+
+                //redraw background // images
+                drawBackground(ctx);
+
+				// redraw all lines
+				ctx.beginPath();
+				for (var i = 0; i < ctx.segments.length; i++) 
+				{
+                    oWebViewInterface.emit('drawLine',
+                    {   sx : ctx.segments[i].sx*window.devicePixelRatio,
+                        sy : ctx.segments[i].sy*window.devicePixelRatio,
+                        ex : ctx.segments[i].ex*window.devicePixelRatio,
+                        ey : ctx.segments[i].ey*window.devicePixelRatio});
+
+					// ctx.moveTo(ctx.segments[i].sx, ctx.segments[i].sy);
+					// ctx.lineTo(ctx.segments[i].ex, ctx.segments[i].ey);
+				}
+                ctx.stroke();
+		}
+
+
+
+//redraw function (called everytime we move or scale)
+		function redraw()
+		{     
+                // Reset the canvas
+				ctx.save();
+				ctx.setTransform(1,0,0,1,0,0);
+				ctx.clearRect(0,0,width,height);
+				ctx.restore();
+
+                //redraw background // images
+                drawBackground(ctx);
+
+				// redraw all lines
+				ctx.beginPath();
+				for (var i = 0; i < ctx.segments.length; i++) 
+				{
+					ctx.moveTo(ctx.segments[i].sx, ctx.segments[i].sy);
+					ctx.lineTo(ctx.segments[i].ex, ctx.segments[i].ey);
+				}
+				ctx.stroke();
+		}
+
+
+
+
+
+
+
+
+
+
+//Calculate finger distance
+
+	  function fingerDistance(e)
+	  {
+		  return Math.sqrt( (e.touches[0].pageX -e.touches[1].pageX) * (e.touches[0].pageX - e.touches[1].pageX ) + (e.touches[0].pageY - e.touches[1].pageY) * (e.touches[0].pageY - e.touches[1].pageY));
+	  }
+
+
+
+
+
+//tracktransforms
+		function trackTransforms(ctx)
+		{
+			var svg = document.createElementNS("http://www.w3.org/2000/svg",'svg');
+			var xform = svg.createSVGMatrix();
+			ctx.getTransform = function(){ return xform; };
+
+			var savedTransforms = [];
+			var save = ctx.save;
+			ctx.save = function(){
+				savedTransforms.push(xform.translate(0,0));
+				return save.call(ctx);
+			};
+			
+			var restore = ctx.restore;
+			ctx.restore = function(){
+				xform = savedTransforms.pop();
+				return restore.call(ctx);
+					};
+
+			var scale = ctx.scale;
+			ctx.scale = function(sx,sy){
+				xform = xform.scaleNonUniform(sx,sy);
+				return scale.call(ctx,sx,sy);
+					};
+			
+			var rotate = ctx.rotate;
+			ctx.rotate = function(radians){
+				xform = xform.rotate(radians*180/Math.PI);
+				return rotate.call(ctx,radians);
+			};
+			
+			var translate = ctx.translate;
+			ctx.translate = function(dx,dy){
+				xform = xform.translate(dx,dy);
+				return translate.call(ctx,dx,dy);
+			};
+			
+			var transform = ctx.transform;
+			ctx.transform = function(a,b,c,d,e,f){
+				var m2 = svg.createSVGMatrix();
+				m2.a=a; m2.b=b; m2.c=c; m2.d=d; m2.e=e; m2.f=f;
+				xform = xform.multiply(m2);
+				return transform.call(ctx,a,b,c,d,e,f);
+			};
+			
+			var setTransform = ctx.setTransform;
+			ctx.setTransform = function(a,b,c,d,e,f){
+				xform.a = a;
+				xform.b = b;
+				xform.c = c;
+				xform.d = d;
+				xform.e = e;
+				xform.f = f;
+				return setTransform.call(ctx,a,b,c,d,e,f);
+			};
+			
+			var pt  = svg.createSVGPoint();
+			ctx.transformedPoint = function(x,y)
+            {
+            	pt.x=x; pt.y=y;
+                var r = pt.matrixTransform(xform.inverse());
+				return {x : r.x, y : r.y};
+			}
+            }
+            
+
+
+        
+
+      </script>
+</html>

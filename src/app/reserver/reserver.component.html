@@ -1,0 +1,59 @@
+<StackLayout class="mainContent">
+
+        <StackLayout class="header">
+                <Image src="~/images/logo.png" id="logo" ></Image>
+                
+        </StackLayout>
+        <StackLayout class="spikes">                
+        </StackLayout>
+        <StackLayout class="pageTitle">
+                <Label text="Trouver un cours en ligne"></Label>                
+        </StackLayout>
+
+        <StackLayout class="filterItems">
+                
+                        <label text="Je souhaite un cours en :" ></label>
+                        <DropDown class="dd" #dd backroundColor="#000" [items]="matieresArray" [(ngModel)]="request.matiere" (selectedIndexChanged)="onMatierechange($event)" (closed)="onMatiereclose()" ></DropDown>
+                        <label text="Date :"></label>
+                        <DropDown class="dd" #dd2 backroundColor="#000" [items]="daylist" [(ngModel)]="request.jour" (selectedIndexChanged)="onJourchange($event)" (closed)="onJourclose()" ></DropDown>
+
+                
+
+                
+                <!-- <GridLayout columns="4" rows="0">
+
+                        <stackLayout col="0" row="0" >
+                        </stackLayout>
+                        <stackLayout col="2" row="0" >
+                        </stackLayout>
+
+                </GridLayout>
+                <Label text="+"></Label>-->
+        </StackLayout>
+
+
+        <ScrollView>
+                <StackLayout *ngIf="data.dispoModel.loaded && data.profsModel.loaded">      
+         
+                        
+                                <GridLayout rows="auto" columns="80,*" *ngFor="let hour of data.dispoModel.hours | filter : matieredblabel[request.matiere] : 1 " class="Block" (tap)="hourTap(hour)" >
+                                                
+                                        <Image class="avatar" src="https://goprof.fr/profilepics/{{hour.prof_id}}.jpg?" col="0" row="0" ></Image>
+                                        <StackLayout col="1" row="0">
+                                                <Label class="hourTime" textWrap="true"  text="{{humantimeuts(hour.start_uts)}} - {{humantimeuts(hour.end_uts)}}"></Label>
+                                                <Label class="HourProfName" text="{{hour.fname}} {{hour.lname}} "></Label>
+                                                <Label class="Price" text="{{hour.fixed_price}} €"></Label>
+                                        </StackLayout>
+                                        
+                                </GridLayout>
+                                <ns-btn  text="Jour suivant" (taponbtn)="nextDay()" color="#2a6465" *ngIf="request.jour < 14"></ns-btn>
+
+        
+                    </StackLayout> 
+
+                    <Label *ngIf="!data.dispoModel.loaded || !data.profsModel.loaded" text="Chargement..." class="loadingText"></Label>
+        
+            
+        </ScrollView>
+        
+</StackLayout>

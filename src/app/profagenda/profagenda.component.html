@@ -1,0 +1,42 @@
+<StackLayout class="mainContent">
+
+        <StackLayout class="header">
+                <Image src="~/images/logo.png" id="logo" ></Image>
+                
+        </StackLayout>
+        <StackLayout class="spikes">                
+        </StackLayout>
+        <StackLayout class="pageTitle">
+                <Label text="Prendre rendez-vous avec {{data.openProf.fname}} {{data.openProf.lname}}" *ngIf="data.user.prof == 0"></Label>                
+        </StackLayout>
+
+        <ScrollView>
+                <StackLayout *ngIf="data.openProfAgendaModel.loaded">
+                        <StackLayout  *ngFor="let day of data.openProfAgendaModel.days " class="Block"  >
+                                <Label class="dayTitle" text="{{dayTitle(day)}}"></Label>
+                                <GridLayout *ngFor=" let hour of day " rows="auto,auto" columns ="*,80" (tap)="hourTap(hour)" class="Hour" [ngClass]="{'notavailable' : !hour.available, 'deleted': hour.deleted}" >
+                
+                
+                                        <Label row="0" col="0" class="hourTime" textWrap="true"  text="{{data.humantimeuts(hour.start_uts)}} - {{data.humantimeuts(hour.end_uts)}}"></Label>
+                                        <!-- <Label class="HourProfName" text="{{hour.fname}} {{hour.lname}} "></Label> -->
+                                        <Label row="0" col="1" class="Price" text="{{hour.fixed_price}} €"></Label>
+                                        
+                                        <GridLayout *ngIf="hour.showOptions" row="1" col="0" colspan="2" columns="*,auto,auto,*" rows="auto" >
+                                                <StackLayout col="1" row="0" style="padding-top:10;"><ns-btn text="Supprimer" [highlight]="false" (taponbtn)="deleteHour(hour)" ></ns-btn></StackLayout>
+                                                <StackLayout col="2" row="0" style="padding-top:10;"><ns-btn text="Annuler" color="#296062" [highlight]="false" (taponbtn)="hideHourOptions(hour)" ></ns-btn></StackLayout>
+                                        </GridLayout>
+                                </GridLayout>
+                        </StackLayout>
+                        
+                        
+                        
+
+                </StackLayout>
+                <Label *ngIf="data.openProfAgendaModel.loaded && data.openProfAgendaModel.days.length == 0" class="dayTitle" text="Aucun cours disponible"  style="margin-top:20"></Label>
+                <Label *ngIf="!data.openProfAgendaModel.loaded" class="dayTitle" text="Chargement.." style="margin-top:20"></Label>
+        </ScrollView>
+        
+
+
+        
+</StackLayout>
